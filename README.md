@@ -1,2 +1,2 @@
 # PaintHack
-A simple drawing programme made for a Hackathon
+A simple drawing program made for a Hackathon
