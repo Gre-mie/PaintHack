@@ -1,0 +1,4 @@
+Next thing to work on:
+
+config.lua 
+	https://www.love2d.org/wiki/Config_Files
