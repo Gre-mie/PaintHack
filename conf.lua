@@ -7,8 +7,9 @@ function love.conf(t)
 
 	-- window
 	t.window.title = "PaintHack"
-	t.window.width = 1024
-	t.window.height = 768
+	-- INFO: uses Android tablet resolution, should be small enough for most screens
+	t.window.width = 1280
+	t.window.height = 800
 
 	print("love.conf ended")
 end
