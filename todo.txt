@@ -1,4 +1,22 @@
 Next thing to work on:
 
-config.lua 
-	https://www.love2d.org/wiki/Config_Files
+- exicutibles upload (downloads, admin)
+- setup and test itch.io page
+- run in browser upload (downloads, admin)
+NOTE: may want multiple config files, one for each OS so I can copy it into conf.lua instead of constently changing combing through the file to alter things back an forth
+
+- split areas of screen
+	- top nav bar (newpage)
+	- side bar (pen)
+	- colour bar (retractable?)
+
+
+- buttons with mouse detection
+	- images
+	- interface
+	- change mouse cursor when button is clicked 
+		cursor images:
+			- crosshairs	 (cross)
+			- pointer	 (arrow)
+			Extra: paintbrush, pointy hand?
+
