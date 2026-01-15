@@ -45,6 +45,8 @@ end
 function love.draw()
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
+		ui:Debug()
 	end -- TEST:
-	ui:Draw() -- TEST:
+
+	ui:Draw()
 end

@@ -1,5 +1,8 @@
 Next thing to work on:
 
+- area base interface, move temp logic from ui.lua for defaults
+- create file for each section that inherits from area.lua and overwrites its defaults
+
 - exicutibles upload (downloads, admin)
 - setup and test itch.io page
 - run in browser upload (downloads, admin)
