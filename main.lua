@@ -1,9 +1,19 @@
+local uipackage = require("ui")
+
 -- INFO: Over write call back functions
 
 -- INFO: load assets for setup
 function love.load()
+	-- TODO: add array of global colours
+
+	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight() }
+
 	love.graphics.setBackgroundColor(0.1, 0, 0.2) -- TEST:
 	love.graphics.setColor(0.5, 0.1, 0.4) -- TEST:
+
+	ui = uipackage:New()
+
+	frame = 0
 end
 
 -- INFO: user detection functions
@@ -28,10 +38,13 @@ end
 
 -- INFO: update application state
 function love.update(dt)
-	--
+	frame = frame + 1
 end
 
 -- INFO: render to window
 function love.draw()
-	love.graphics.circle("fill", 200, 200, 50) -- TEST:
+	if frame <= 1 then
+		print("window\nwidth: " .. window.width .. " height: " .. window.height)
+	end -- TEST:
+	ui:Draw() -- TEST:
 end
