@@ -1,4 +1,5 @@
 local uicanvas = require("resources/areas/canvas")
+local basebar = require("resources/areas/bar") -- TEST:
 
 local ui = {}
 
@@ -10,14 +11,14 @@ function ui:New()
 	-- TODO: create section objects with their buttons, set their draw positions
 
 	-- TEST: vv
-	local padding = 10
+
+	local programBar = basebar:New(0, 0, window.width, 100)
 
 	local canvas = uicanvas:New(200, 200, window.width - 200, window.height - 200) -- WARNING: draw area should be made last, and fill remaining space
 
 	-- TODO: create base area interface with New, Draw, Debug methods
 	-- program bar interface, inherit add buttons (overwrite functions)
-	local programBar =
-		{ name = "program bar", x = 0, y = 0, width = window.width, height = 100, padding = padding, buttons = {} } -- area:NEW()
+	--	local programBar = { name = "program bar", x = 0, y = 0, width = window.width, height = 100, buttons = {} } -- area:NEW()
 	-- TEST: ^^
 
 	local obj = { areas = { programBar, canvas } }
@@ -31,9 +32,10 @@ function ui:Debug()
 	print("ui")
 	print("areas: " .. #self.areas)
 	for area, section in pairs(self.areas) do
-		print(section.name)
-		print("x: " .. section.x .. " y: " .. section.y)
-		print("width: " .. section.width .. " height: " .. section.height)
+		section:Debug()
+		--	print(section.name)
+		--	print("x: " .. section.x .. " y: " .. section.y)
+		--	print("width: " .. section.width .. " height: " .. section.height)
 	end
 
 	print()
@@ -59,23 +61,6 @@ function ui:Draw()
 			section.width - linewidth,
 			section.height - linewidth
 		)
-
-		-- Draw buttons in section
-		-- TODO: sawp rectangle for button image
-		linewidth = 5
-		love.graphics.setLineWidth(linewidth, "smooth")
-		love.graphics.setColor(0.5, 0.5, 0.5)
-		for i = 1, #section.buttons do
-			print("buttons len: " .. #section.buttons) -- TEST:
-			local button = section.buttons[i]
-			love.graphics.rectangle(
-				"line",
-				button.x + linewidth / 2,
-				button.y + linewidth / 2,
-				button.width,
-				button.height
-			)
-		end
 
 		::testloop::
 	end
