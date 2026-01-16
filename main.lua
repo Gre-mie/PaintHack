@@ -9,7 +9,6 @@ function love.load()
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight() }
 
 	love.graphics.setBackgroundColor(0.1, 0, 0.2) -- TEST:
-	love.graphics.setColor(0.5, 0.1, 0.4) -- TEST:
 
 	ui = uipackage:New()
 

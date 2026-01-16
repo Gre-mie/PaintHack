@@ -42,30 +42,19 @@ function ui:Debug()
 end
 
 function ui:Draw()
-	-- TEST: vv
-	local linewidth = 10
-
-	-- draw section
+	if frame <= 1 then
+		print("--> drawing sections...")
+	end -- TEST:
+	-- each draw section
 	for i = 1, #self.areas do
 		local section = self.areas[i]
-		if section.name == "canvas" then
-			section:Draw()
-			goto testloop
-		end
-		love.graphics.setLineWidth(linewidth, "smooth")
-		love.graphics.setColor(0.5, 0.1, 0.4)
-		love.graphics.rectangle(
-			"line",
-			section.x + linewidth / 2,
-			section.y + linewidth / 2,
-			section.width - linewidth,
-			section.height - linewidth
-		)
 
-		::testloop::
+		if frame <= 1 then
+			section:Debug()
+		end -- TEST:`
+
+		section:Draw()
 	end
-
-	-- TEST: ^^
 end
 
 return ui

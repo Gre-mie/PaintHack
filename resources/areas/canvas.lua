@@ -19,9 +19,6 @@ end
 function canvas:Draw()
 	-- TEST: vv
 	linewidth = 10
-	if frame <= 1 then
-		print("draw canvas...")
-	end
 	love.graphics.setColor(0.3, 0.4, 0.1)
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(
