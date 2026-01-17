@@ -6,9 +6,11 @@ local uipackage = require("ui")
 function love.load()
 	-- TODO: add array of global colours
 
-	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight() }
+	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
 	love.graphics.setBackgroundColor(0.1, 0, 0.2) -- TEST:
+	local font = love.graphics.newFont(window.fontsize) -- font size
+	love.graphics.setFont(font)
 
 	ui = uipackage:New()
 

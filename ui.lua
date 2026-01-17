@@ -33,9 +33,6 @@ function ui:Debug()
 	print("areas: " .. #self.areas)
 	for area, section in pairs(self.areas) do
 		section:Debug()
-		--	print(section.name)
-		--	print("x: " .. section.x .. " y: " .. section.y)
-		--	print("width: " .. section.width .. " height: " .. section.height)
 	end
 
 	print()
@@ -48,12 +45,11 @@ function ui:Draw()
 	-- each draw section
 	for i = 1, #self.areas do
 		local section = self.areas[i]
+		section:Draw()
 
 		if frame <= 1 then
 			section:Debug()
 		end -- TEST:`
-
-		section:Draw()
 	end
 end
 
