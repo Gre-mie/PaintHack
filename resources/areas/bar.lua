@@ -5,18 +5,21 @@ local bar = {}
 -- INFO: base ui object to be inherited
 
 function bar:New(x, y, width, height)
+	obj = { name = "default bar", x = x, y = y, width = width, height = height, padding = 10, buttons = {} }
+	self.__index = self
+	local object = setmetatable(obj, self)
+
 	-- TEST: vv
 	-- WARNING: DONT BE A NUMPTY: the buttons will have their location set by the function the object that inherits from bar
 	-- they will be cardcoded for each type of button, in each type of bar
-	local b1 = uibutton:New(0, 50, 32, 32)
-	local b2 = uibutton:New(42, 50, 32, 32)
-	local b3 = uibutton:New(84, 50, 32, 32)
-	local buttons = { b1, b2, b3 }
+	table.insert(object.buttons, uibutton:New(x, y, 32, 32))
+	table.insert(object.buttons, uibutton:New(x + 32, y + 32, 32, 32))
+	table.insert(object.buttons, uibutton:New(x + 64, y + 64, 32, 32))
+	--local obj = { b1, b2, b3 }
+	--table.insert(object.buttons, b1)
 	-- TEST: ^^
 
-	obj = { name = "default bar", x = x, y = y, width = width, height = height, padding = 10, buttons = buttons }
-	self.__index = self
-	return setmetatable(obj, self)
+	return object
 end
 
 function bar:Debug()

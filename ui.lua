@@ -8,20 +8,27 @@ local ui = {}
 function ui:New()
 	--window.width, window.height
 
-	-- TODO: create section objects with their buttons, set their draw positions
-
-	-- TEST: vv
-
+	-- INFO: set area sizes
+	-- WARNING: fixed
+	-- TODO: measure the height/width of buttons
+	-- TEST: here the basebar object is called as a temporary measure, later it will custom bars, in which x,y,width,height may not be needed (hard coding)
 	local programBar = basebar:New(0, 0, window.width, 100)
+	local toolBar = basebar:New(0, programBar.height, 100, window.height - programBar.height)
 
-	local canvas = uicanvas:New(200, 200, window.width - 200, window.height - 200) -- WARNING: draw area should be made last, and fill remaining space
+	local optionsBar = basebar:New(0, programBar.height + toolBar.height, window.width - toolBar.width, 150)
+
+	local canvas = uicanvas:New(
+		toolBar.width,
+		programBar.height,
+		window.width - toolBar.width,
+		window.height - (programBar.height + optionsBar.height)
+	)
 
 	-- TODO: create base area interface with New, Draw, Debug methods
 	-- program bar interface, inherit add buttons (overwrite functions)
 	--	local programBar = { name = "program bar", x = 0, y = 0, width = window.width, height = 100, buttons = {} } -- area:NEW()
-	-- TEST: ^^
 
-	local obj = { areas = { programBar, canvas } }
+	local obj = { areas = { programBar, toolBar, optionsBar, canvas } }
 
 	self.__index = self
 	return setmetatable(obj, self)
