@@ -1,34 +1,24 @@
-local uibutton = require("resources/areas/buttons/button") -- TEST:
-
 local bar = {}
 
 -- INFO: base ui object to be inherited
 
-function bar:New(x, y, width, height)
-	obj = { name = "default bar", x = x, y = y, width = width, height = height, padding = 10, buttons = {} }
+function bar:New()
+	obj = { name = "default bar", buttons = {} }
 	self.__index = self
 	local object = setmetatable(obj, self)
-
-	-- TEST: vv
-	-- WARNING: DONT BE A NUMPTY: the buttons will have their location set by the function the object that inherits from bar
-	-- they will be cardcoded for each type of button, in each type of bar
-	table.insert(object.buttons, uibutton:New(x, y, 32, 32))
-	table.insert(object.buttons, uibutton:New(x + 32, y + 32, 32, 32))
-	table.insert(object.buttons, uibutton:New(x + 64, y + 64, 32, 32))
-	--local obj = { b1, b2, b3 }
-	--table.insert(object.buttons, b1)
-	-- TEST: ^^
 
 	return object
 end
 
 function bar:Debug()
 	print(self.name)
-	print("x: " .. self.x .. " y: " .. self.y)
-	print("width: " .. self.width .. " height: " .. self.height)
-	print("padding: " .. self.padding)
-	print("buttons: " .. #self.buttons)
-	print()
+	if self.name ~= "default bar" then
+		print("x: " .. self.x .. " y: " .. self.y)
+		--		print("width: " .. self.width .. " height: " .. self.height)
+		--		print("padding: " .. self.padding)
+		--		print("buttons: " .. #self.buttons)
+		--		print()
+	end
 end
 
 -- INFO: prints the buttons at their xy cords. Buttons holde their own location
@@ -44,28 +34,21 @@ end
 
 -- INFO: this function should be overwriten by the object that inherits
 function bar:Draw()
+	-- fallback texture
 	local linewidth = 10
-	-- draws the bar grahics
+	local x, y, width, height = 0, 0, 300, 300
+
+	if frame <= 1 then
+		local message = self.name .. ", is drawing default bar texture"
+		print("WARNING: " .. message)
+		-- TODO: append to log
+	end
+
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.setColor(0.6, 0.6, 0.6)
-	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	love.graphics.rectangle("fill", x, y, width, height)
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.rectangle(
-		"line",
-		self.x + linewidth / 2,
-		self.y + linewidth / 2,
-		self.width - linewidth,
-		self.height - linewidth
-	)
-
-	self:DrawButtons()
-
-	-- TEST: vv
-
-	--love.graphics.setColor(0, 0, 0)
-	--local padding = 10
-	--love.graphics.print("testing", self.x + padding, self.y + padding) -- WARNING: theres a little space above the default font that might make things look like their not alineing, remember there SHOULD be space at the top
-	-- TEST: ^^
+	love.graphics.rectangle("line", x + linewidth / 2, y + linewidth / 2, width - linewidth, height - linewidth)
 end
 
 return bar
