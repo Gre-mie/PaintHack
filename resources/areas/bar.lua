@@ -13,11 +13,9 @@ end
 function bar:Debug()
 	print(self.name)
 	if self.name ~= "default bar" then
-		print("x: " .. self.x .. " y: " .. self.y)
-		--		print("width: " .. self.width .. " height: " .. self.height)
-		--		print("padding: " .. self.padding)
-		--		print("buttons: " .. #self.buttons)
-		--		print()
+		message = self.name .. " does not yet have a Debug function"
+		print("WARNING: " .. message)
+		-- TODO: append to log
 	end
 end
 
