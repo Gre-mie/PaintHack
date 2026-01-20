@@ -8,7 +8,7 @@ function love.load()
 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
-	love.graphics.setBackgroundColor(0.1, 0, 0.2) -- TEST:
+	love.graphics.setBackgroundColor(0.6, 0.5, 0.5) -- TEST:
 	local font = love.graphics.newFont(window.fontsize) -- font size
 	love.graphics.setFont(font)
 
