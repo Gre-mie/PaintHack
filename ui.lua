@@ -1,3 +1,5 @@
+helpBar = require("resources/areas/barhelpers")
+
 --local uicanvas = require("resources/areas/canvas")
 local uiprogrambar = require("resources/areas/programbar")
 

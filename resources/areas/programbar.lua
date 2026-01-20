@@ -13,4 +13,13 @@ function programBar:New()
 	return obj
 end
 
+function programBar:Debug()
+	helpBar.PrintBar(self)
+	print()
+end
+
+function programBar:Draw()
+	local linewidth
+end
+
 return programBar
