@@ -2,16 +2,16 @@ helpBar = require("resources/areas/barhelpers")
 
 --local uicanvas = require("resources/areas/canvas")
 local uiprogrambar = require("resources/areas/programbar")
+local uitoolbar = require("resources/areas/toolbar")
 
-local basebar = require("resources/areas/bar") -- TEST:
+--local basebar = require("resources/areas/bar") -- TEST:
 
 local ui = {}
 
 -- INFO: ui holds all the areas and updates the elements
---
+-- WARNING: ui:New should only be used ONCE in love.load
+-- 	uses ui bars that load their own sprites during creation
 function ui:New()
-	--window.width, window.height
-
 	-- areas of ui
 	local programBar = uiprogrambar:New()
 	if programBar == nil then
@@ -20,12 +20,17 @@ function ui:New()
 		-- TODO: add to error logs and exit
 	end
 
+	-- @argument y
+	local toolBar = uitoolbar:New(programBar.height)
+	if toolBar == nil then
+		local message = "toolBar wasn't created"
+		print(message)
+		-- TODO: add to error logs and exit
+	end
+
 	-- INFO: set area sizes
 	-- WARNING: fixed
-	-- TODO: measure the height/width of buttons
-	-- TEST: here the basebar object is called as a temporary measure, later it will custom bars, in which x,y,width,height may not be needed (hard coding)
-	--
-	--	local programBar = basebar:New(0, 0, window.width, 100)
+
 	--	local toolBar = basebar:New(0, programBar.height, 100, window.height - programBar.height)
 
 	--	local optionsBar = basebar:New(0, programBar.height + toolBar.height, window.width - toolBar.width, 150)
@@ -42,7 +47,7 @@ function ui:New()
 	--	local programBar = { name = "program bar", x = 0, y = 0, width = window.width, height = 100, buttons = {} } -- area:NEW()
 
 	-- local obj = { areas = { programBar, toolBar, optionsBar, canvas } }
-	local obj = { areas = { programBar } }
+	local obj = { name = "ui", areas = { programBar, toolBar } }
 
 	self.__index = self
 	return setmetatable(obj, self)
@@ -50,13 +55,11 @@ end
 
 -- prints basic info
 function ui:Debug()
-	print("ui")
+	print(self.name)
 	print("areas: " .. #self.areas)
 	for area, section in pairs(self.areas) do
 		section:Debug()
 	end
-
-	print()
 end
 
 function ui:Draw()

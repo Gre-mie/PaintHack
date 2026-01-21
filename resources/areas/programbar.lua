@@ -4,11 +4,15 @@ local bar = require("resources/areas/bar")
 
 local programBar = bar:New() -- TEST:
 
+-- WARNING: programBar:New will call objects that load their own sprites
 function programBar:New()
 	print("creating, base" .. self.name) -- TEST:
 	obj = self
 	obj.name = "program bar"
-	obj.x, obj.y, obj.width, obj.height = 0, 0, window.width, 42
+	-- measure image width
+	local imageHeight = 32 -- TEST:
+	obj.x, obj.y, obj.width, obj.height = 0, 0, window.width, (self.padding * 2) + imageHeight
+	-- TODO: add buttons
 
 	return obj
 end

@@ -2,8 +2,8 @@ local bar = {}
 
 -- INFO: base ui object to be inherited
 
-function bar:New()
-	obj = { name = "default bar", buttons = {} }
+function bar:New() -- WARNING: padding is the padding on ONE side
+	obj = { name = "default bar", x = 200, y = 200, width = 200, height = 200, padding = 5, buttons = {} }
 	self.__index = self
 	local object = setmetatable(obj, self)
 
@@ -11,7 +11,7 @@ function bar:New()
 end
 
 function bar:Debug()
-	print(self.name)
+	helpBar.PrintBar(self)
 	if self.name ~= "default bar" then
 		message = self.name .. " does not yet have a Debug function"
 		print("WARNING: " .. message)
@@ -34,7 +34,7 @@ end
 function bar:Draw()
 	-- fallback texture
 	local linewidth = 10
-	local x, y, width, height = 0, 0, 300, 300
+	--local x, y, width, height = 0, 0, 300, 300
 
 	if frame <= 1 then
 		local message = self.name .. ", is drawing default bar texture"
@@ -43,10 +43,16 @@ function bar:Draw()
 	end
 
 	love.graphics.setLineWidth(linewidth, "smooth")
-	love.graphics.setColor(0.6, 0.6, 0.6)
+	love.graphics.setColor(0.6, 0.6, 0.3)
 	love.graphics.rectangle("fill", x, y, width, height)
-	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.rectangle("line", x + linewidth / 2, y + linewidth / 2, width - linewidth, height - linewidth)
+	love.graphics.setColor(1, 0.5, 0.5)
+	love.graphics.rectangle(
+		"line",
+		self.x + linewidth / 2,
+		self.y + linewidth / 2,
+		self.width - linewidth,
+		self.height - linewidth
+	)
 end
 
 return bar
