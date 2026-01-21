@@ -2,32 +2,31 @@ local bar = require("resources/areas/bar")
 
 -- INFO: UI for toolbar, eg pen, rubber
 
-local toolBar = bar:New() -- TEST:
+local optionsBar = bar:New() -- TEST:
 
 -- WARNING: toolBar:New will call objects that load their own sprites
-function toolBar:New(y)
+function optionsBar:New(x, y, width, height)
 	print("creating, base" .. self.name) -- TEST:
 	obj = self
-	obj.name = "tool bar"
-	-- measure height of images
-	local imageWidth = 64 -- TEST:
-	obj.x, obj.y, obj.width, obj.height = 0, y, (self.padding * 2) + imageWidth, window.height - y
+	obj.name = "options bar"
+	-- hight is assumed
+	obj.x, obj.y, obj.width, obj.height = x, y, width, height
 	-- TODO: add buttons
 
 	return obj
 end
 
-function toolBar:Debug()
+function optionsBar:Debug()
 	helpBar.PrintBar(self)
 	print()
 end
 
-function toolBar:Draw()
+function optionsBar:Draw()
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(0.43, 0.40, 0.55) -- TODO: change this colour, setup colour file, add coloured print vars
+	love.graphics.setColor(0.62, 0.65, 0.72) -- TODO: change this colour, setup colour file, add coloured print vars
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-	love.graphics.setColor(0.33, 0.28, 0.43)
+	love.graphics.setColor(0.52, 0.52, 0.60)
 	love.graphics.rectangle(
 		"line",
 		self.x + linewidth / 2,
@@ -37,4 +36,4 @@ function toolBar:Draw()
 	)
 end
 
-return toolBar
+return optionsBar
