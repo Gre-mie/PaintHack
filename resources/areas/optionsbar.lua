@@ -17,7 +17,7 @@ function optionsBar:New(x, y, width, height)
 end
 
 function optionsBar:Debug()
-	helpBar.PrintBar(self)
+	helpUI.DebugElement(self)
 	print()
 end
 

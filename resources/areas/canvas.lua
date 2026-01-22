@@ -3,23 +3,28 @@ local canvas = {}
 -- INFO: the drawing area of the window
 
 function canvas:New(x, y, width, height)
-	local obj = { name = "canvas", x = x, y = y, height = height, width = width }
+	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil }
 
 	self.__index = self
 	return setmetatable(obj, self)
 end
 
 function canvas:Debug()
-	print("canvas")
-	print("x: " .. self.x .. " y: " .. self.y)
-	print("width: " .. self.width .. " height: " .. self.height)
+	helpUI.DebugElement(self)
 	print()
 end
 
 function canvas:Draw()
-	-- TEST: vv
-	linewidth = 10
-	love.graphics.setColor(0.3, 0.4, 0.1)
+	-- draws the background colour if set
+	-- INFO: mouse right click on colour in colour pallet, should set the background
+	if self.backgroundColour ~= nil then
+		love.graphics.setColor(unpack(self.backgroundColour)) -- unpacks the elements of a table and places them in as arguments
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	end
+
+	-- draws the canvas border
+	linewidth = 5
+	love.graphics.setColor(0.05, 0, 0.1)
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(
 		"line",
@@ -28,7 +33,6 @@ function canvas:Draw()
 		self.width - linewidth,
 		self.height - linewidth
 	)
-	-- TEST: ^^
 end
 
 return canvas

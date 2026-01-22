@@ -1,4 +1,4 @@
-helpBar = require("resources/areas/barhelpers")
+helpUI = require("resources/areas/uihelpers")
 
 local uiprogrambar = require("resources/areas/programbar")
 local uitoolbar = require("resources/areas/toolbar")

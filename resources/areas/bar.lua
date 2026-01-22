@@ -11,7 +11,7 @@ function bar:New() -- WARNING: padding is the padding on ONE side
 end
 
 function bar:Debug()
-	helpBar.PrintBar(self)
+	helpUI.DebugElement(self)
 	if self.name ~= "default bar" then
 		message = self.name .. " does not yet have a Debug function"
 		print("WARNING: " .. message)

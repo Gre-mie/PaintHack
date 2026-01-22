@@ -1,4 +1,5 @@
 local uipackage = require("ui")
+-- TODO: IMPORT COLOUR
 
 -- INFO: Over write call back functions
 
@@ -8,7 +9,7 @@ function love.load()
 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
-	love.graphics.setBackgroundColor(0.6, 0.5, 0.5) -- TEST:
+	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
 	local font = love.graphics.newFont(window.fontsize) -- font size
 	love.graphics.setFont(font)
 
