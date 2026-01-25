@@ -1,12 +1,14 @@
+local colourspackage = require("resources/colours")
 local uipackage = require("ui")
--- TODO: IMPORT COLOUR
+
 
 -- INFO: Over write call back functions
 
 -- INFO: load assets for setup
 function love.load()
-	-- TODO: add array of global colours
-
+	
+	colours = uipackage
+	print("colours len: "..#colours)-- TEST: -- TODO: get the colours file to load 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
 	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
