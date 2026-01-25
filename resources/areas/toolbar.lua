@@ -2,11 +2,10 @@ local bar = require("resources/areas/bar")
 
 -- INFO: UI for toolbar, eg pen, rubber
 
-local toolBar = bar:New() -- TEST:
+local toolBar = bar:New()
 
 -- WARNING: toolBar:New will call objects that load their own sprites
 function toolBar:New(y)
-	print("creating, base" .. self.name) -- TEST:
 	obj = self
 	obj.name = "tool bar"
 	-- measure height of images
@@ -23,17 +22,22 @@ function toolBar:Debug()
 end
 
 function toolBar:Draw()
+	if running ~= true then
+		return -- may not yet be working
+	end
+
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(0.43, 0.40, 0.55) -- TODO: change this colour, setup colour file, add coloured print vars
-	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-	love.graphics.setColor(0.33, 0.28, 0.43)
+	love.graphics.setColor(window.theme.background)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, 5,5)
+	love.graphics.setColor(window.theme.green)
 	love.graphics.rectangle(
 		"line",
 		self.x + linewidth / 2,
 		self.y + linewidth / 2,
 		self.width - linewidth,
-		self.height - linewidth
+		self.height - linewidth,
+		5,5
 	)
 end
 

@@ -1,6 +1,9 @@
 Next thing to work on:
 
-- create colour file and update error messages
+- add draw colours
+- add draw graphic and button
+- add colours to pallent (click detection)
+
 
 - exicutibles upload (downloads, admin)
 - setup and test itch.io page
