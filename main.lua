@@ -1,4 +1,4 @@
-local colourspackage = require("resources/colours")
+local colours = require("colours")
 local uipackage = require("ui")
 
 
@@ -7,8 +7,7 @@ local uipackage = require("ui")
 -- INFO: load assets for setup
 function love.load()
 	
-	colours = uipackage
-	print("colours len: "..#colours)-- TEST: -- TODO: get the colours file to load 
+	print(colours.Error..colours.Warning)-- TEST: -- TODO: get the colours file to load 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
 	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
