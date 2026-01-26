@@ -82,19 +82,24 @@ function ui:New()
 	return setmetatable(obj, self)
 end
 
--- prints basic info
-function ui:Debug()
+-- prints basic ui info
+	-- "areas" prints the debug for each area of the ui
+-- @arguments type string
+function ui:Debug(type)
 	print(self.name)
 	print("areas: " .. help.len(self.areas))
-	for _, section in ipairs(self.areas) do
-		section:Debug()
+
+	if type == "areas" then
+		for _, section in ipairs(self.areas) do
+			section:Debug()
+		end
 	end
 end
 
 function ui:Draw()
-	if frame <= 1 then
-		print("--> drawing sections...")
-	end -- TEST:
+	if running ~= true then
+		return -- may not be working
+	end
 	
 	-- draw areass
 	for i = 1, help.len(self.areas) do

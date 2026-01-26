@@ -2,11 +2,10 @@ local bar = require("resources/areas/bar")
 
 -- INFO: UI for programe operations, eg save, new page
 
-local programBar = bar:New() -- TEST:
+local programBar = bar:New()
 
 -- WARNING: programBar:New will call objects that load their own sprites
 function programBar:New()
-	print("creating, base" .. self.name) -- TEST:
 	obj = self
 	obj.name = "program bar"
 	-- measure image width
@@ -23,6 +22,10 @@ function programBar:Debug()
 end
 
 function programBar:Draw()
+	if running ~= true then
+		return -- may not yet be working
+	end
+
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
 	love.graphics.setColor(0.67, 0.70, 0.72) -- TODO: change this colour, setup colour file, add coloured print vars

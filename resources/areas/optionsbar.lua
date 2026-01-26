@@ -2,11 +2,10 @@ local bar = require("resources/areas/bar")
 
 -- INFO: UI for toolbar, eg pen, rubber
 
-local optionsBar = bar:New() -- TEST:
+local optionsBar = bar:New()
 
 -- WARNING: toolBar:New will call objects that load their own sprites
 function optionsBar:New(x, y, width, height)
-	print("creating, base" .. self.name) -- TEST:
 	obj = self
 	obj.name = "options bar"
 	-- hight is assumed
@@ -22,6 +21,10 @@ function optionsBar:Debug()
 end
 
 function optionsBar:Draw()
+	if running ~= true then
+		return -- may not yet be working
+	end
+
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
 	love.graphics.setColor(0.62, 0.65, 0.72) -- TODO: change this colour, setup colour file, add coloured print vars
@@ -34,6 +37,7 @@ function optionsBar:Draw()
 		self.width - linewidth,
 		self.height - linewidth
 	)
+
 end
 
 return optionsBar

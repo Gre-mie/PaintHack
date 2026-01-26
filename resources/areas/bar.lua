@@ -14,14 +14,14 @@ function bar:Debug()
 	helpUI.DebugElement(self)
 	if self.name ~= "default bar" then
 		message = self.name .. " does not yet have a Debug function"
-		print("WARNING: " .. message)
+		print(colours.Warning .. message)
 		-- TODO: append to log
 	end
 end
 
 -- INFO: prints the buttons at their xy cords. Buttons holde their own location
 function bar:DrawButtons()
-	for i = 1, #self.buttons do
+	for i = 1, help.len(self.buttons) do
 		local button = self.buttons[i]
 		button:Draw()
 		if frame <= 1 then
@@ -32,19 +32,23 @@ end
 
 -- INFO: this function should be overwriten by the object that inherits
 function bar:Draw()
+	if running ~= true then
+		return -- may not be working yet
+	end
+
 	-- fallback texture
 	local linewidth = 10
-	--local x, y, width, height = 0, 0, 300, 300
 
 	if frame <= 1 then
 		local message = self.name .. ", is drawing default bar texture"
-		print("WARNING: " .. message)
+		print(colours.Warning .. message)
 		-- TODO: append to log
 	end
 
+	-- TODO: CHANGE TO DEBUG COLOURS
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.setColor(0.6, 0.6, 0.3)
-	love.graphics.rectangle("fill", x, y, width, height)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	love.graphics.setColor(1, 0.5, 0.5)
 	love.graphics.rectangle(
 		"line",
@@ -53,6 +57,7 @@ function bar:Draw()
 		self.width - linewidth,
 		self.height - linewidth
 	)
+
 end
 
 return bar

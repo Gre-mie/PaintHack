@@ -11,7 +11,7 @@ function helpers.DebugElement(element)
 		print("padding: " .. element.padding)
 	end
 	if element.buttons ~= nil then
-		print("buttons: " .. #element.buttons)
+		print("buttons: " .. help.len(element.buttons))
 	end
 	if element.backgroundColour ~= nil then
 		print(

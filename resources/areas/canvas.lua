@@ -16,15 +16,15 @@ end
 
 function canvas:Draw()
 	-- draws the background colour if set
-	-- INFO: mouse right click on colour in colour pallet, should set the background
-	if self.backgroundColour ~= nil then
+	-- INFO: mouse right click on colour in colour pallet, should set the background. colour should be from the colours file rgba
+	if self.backgroundColour ~= nil and running then
 		love.graphics.setColor(unpack(self.backgroundColour)) -- unpacks the elements of a table and places them in as arguments
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	end
 
 	-- draws the canvas border
 	linewidth = 5
-	love.graphics.setColor(0.05, 0, 0.1)
+	love.graphics.setColor(0.05, 0, 0.1)	-- TODO: use colours from colours file
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(
 		"line",

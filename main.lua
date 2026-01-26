@@ -31,7 +31,7 @@ function love.load()
 
 	ui = uipackage:New()
 	if running ~= true then
-		return
+		return -- may not be working
 	end
 
 
@@ -79,6 +79,7 @@ function love.draw()
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
 		ui:Debug()
+		--ui:Debug("areas")
 	end 
 	-- TEST: ^^
 
