@@ -1,4 +1,5 @@
-local colours = require("colours")
+local mainhelperspackage = require("mainhelpers")
+local colourspackage = require("colours")
 local uipackage = require("ui")
 
 
@@ -6,6 +7,15 @@ local uipackage = require("ui")
 
 -- INFO: load assets for setup
 function love.load()
+
+	colours = colourspackage
+	if colourspackage == nil then 
+		local message = "\27[31mERROR: \27[0mUnable to load colours, colours is nil"
+		print(message)
+		-- TODO: EXIT PROGRAME
+	end
+
+	help = mainhelperspackage
 	
 	print(colours.Error..colours.Warning)-- TEST: -- TODO: get the colours file to load 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
