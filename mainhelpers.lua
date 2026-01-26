@@ -5,9 +5,11 @@ local helpers = {}
 -- INFO: returns the length of an array
 	-- this function will count the elements of a map, which would usually return 0 even when elements are set
 function helpers.len(arrtype)
+	-- WARNING: its possible for this function to be run when colours is nil
 	if arrtype == nil then
-		print("\27[33mWARNING:\27[0m nil entity given to len function")
-		return 0
+		message = "nil entity given to len function"
+		print("\27[33mWARNING:\27[0m "..message)
+		-- TODO: add to logs
 	end
 
 	-- checks for an index
@@ -24,6 +26,5 @@ function helpers.len(arrtype)
 	return items
 	
 end
-
 
 return helpers

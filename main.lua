@@ -7,19 +7,22 @@ local uipackage = require("ui")
 
 -- INFO: load assets for setup
 function love.load()
-
-	colours = colourspackage
-	if colourspackage == nil then 
-		local message = "\27[31mERROR: \27[0mUnable to load colours, colours is nil"
-		print(message)
-		-- TODO: EXIT PROGRAME
-	end
-
-	help = mainhelperspackage
-
-	print("colours array len: "..help.len(colours)) -- TEST: 
 	
-	print(colours.Error..colours.Warning)-- TEST: -- TODO: get the colours file to load 
+	running = true
+	frame = 0
+	colours = colourspackage
+	help = mainhelperspackage
+	
+	-- checks colours has keys/values
+		-- dont remove this check, exits if empty/nil
+	if help.len(colours) == 0 then
+		message = "colours is len 0"
+		print("\27[31mERROR: ", message)
+		-- TODO: add to logs
+		love.event.quit(1) -- WARNING: IOS doesn't like this and may cause restart instead
+
+	end
+	
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
 
 	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
@@ -27,8 +30,11 @@ function love.load()
 	love.graphics.setFont(font)
 
 	ui = uipackage:New()
+	if running ~= true then
+		return
+	end
 
-	frame = 0
+
 end
 
 -- INFO: user detection functions
@@ -48,20 +54,33 @@ end
 
 -- INFO: KEYBOARD
 function love.keypressed(key, scancode, isrepeat)
-	--
+	-- exit programe with 'Esc' key
+	if key == "escape" and isrepeat ~= true then
+		love.event.quit() -- WARNING: IOS doesn't like this and may cause restart instead
+	end
+
 end
 
 -- INFO: update application state
 function love.update(dt)
+	if running ~= true then
+		return
+	end
 	frame = frame + 1
 end
 
 -- INFO: render to window
 function love.draw()
+	if running ~= true then
+		return
+	end
+
+	-- TEST: vv
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
 		ui:Debug()
-	end -- TEST:
+	end 
+	-- TEST: ^^
 
 	ui:Draw()
 end
