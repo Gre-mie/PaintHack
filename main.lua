@@ -16,6 +16,8 @@ function love.load()
 	end
 
 	help = mainhelperspackage
+
+	print("colours array len: "..help.len(colours)) -- TEST: 
 	
 	print(colours.Error..colours.Warning)-- TEST: -- TODO: get the colours file to load 
 	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
