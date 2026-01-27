@@ -25,7 +25,8 @@ function love.load()
 	
 	window = { 
 		width = love.graphics.getWidth(), 
-		height = love.graphics.getHeight(), fontsize = 32,
+		height = love.graphics.getHeight(), 
+		fontsize = 32,
 		activeButton = "pen",
 		mouse = {cords = {0,0}},
 	}
@@ -46,6 +47,8 @@ end
 
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
+	window.mouse.cords[1] = x
+	window.mouse.cords[2] = y
 end
 
 function love.mousepressed(x, y, button, istouch, presses)

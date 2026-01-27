@@ -16,24 +16,26 @@ end
 
 -- INFO: checks if the cursor is in the draw area
 -- @return bool
-function canvas:CursorHover(x, y)
-	if x >= self.x and
-		x <= (self.x + self.width) and
-		y >= self.y and
-		y <= (self.y + self.height) then
+function canvas:CursorHover()
+	x, y = window.mouse.cords[1], window.mouse.cords[2]
+	if x > self.x and
+		-- must be slightly smaller on right side to handle cursor leaving the window
+		x < (self.x + self.width)-1 and
+		y > self.y and
+		y < (self.y + self.height) then
 		return true
 	else return false end
 end
 
 -- draws the cursor
-function canvas:DrawCursor(x, y)
+function canvas:DrawCursor()
 	love.graphics.setColor(self.paint)
 	love.graphics.circle("fill", x, y, self.brushSize/2)
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.circle("line", x, y, self.brushSize/2)
+	love.graphics.circle("line", window.mouse.cords[1], window.mouse.cords[2], self.brushSize/2)
 	
 end
 
@@ -58,7 +60,7 @@ function canvas:Draw()
 	)
 
 	-- draw the curser at mouse
-	self:DrawCursor(love.mouse.getPosition()) -- TEST: 
+	--self:DrawCursor(love.mouse.getPosition()) -- TEST: 
 	
 end
 

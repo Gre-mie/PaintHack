@@ -76,7 +76,7 @@ function ui:New()
 		print("!!! this shouldn't print")
 	end
 
-	local obj = { name = "ui", areas = { programBar, toolBar, optionsBar, canvas } }
+	local obj = { name = "ui", areas = { programBar, toolBar, optionsBar }, canvas = canvas }
 
 	self.__index = self
 	return setmetatable(obj, self)
@@ -106,6 +106,18 @@ function ui:Draw()
 		local section = self.areas[i]
 		section:Draw()
 
+	end
+
+	-- draws correct curser
+	if self.canvas:CursorHover() then
+		if love.mouse.isVisible() then
+			love.mouse.setVisible(false)
+		end
+		self.canvas:DrawCursor()
+	else
+		if love.mouse.isVisible() == false then
+			love.mouse.setVisible(true)
+		end
 	end
 end
 
