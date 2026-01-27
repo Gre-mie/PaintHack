@@ -40,6 +40,44 @@ function love.load()
 		return -- may not be working
 	end
 
+	-- TEST: vvv
+	
+	r,g,b,a = help.colourFromHex("")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+
+	r,g,b,a = help.colourFromHex("b")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+
+	r,g,b,a = help.colourFromHex("bad string")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+	
+	r,g,b,a = help.colourFromHex("bad string")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+
+	r,g,b,a = help.colourFromHex("#ff00ff")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+	
+	r,g,b,a = help.colourFromHex("#ff00ff99")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+
+	r,g,b,a = help.colourFromHex("#00ff0099ffbb")
+	if a == nil then a = "nil" end
+	print("returned: "..r.." "..g.." "..b.." "..a)
+	print()
+	-- TEST: ^^^
+
 
 end
 

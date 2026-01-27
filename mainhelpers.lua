@@ -27,4 +27,25 @@ function helpers.len(arrtype)
 	
 end
 
+-- converts a colour from hex colour string to rgba 1-0
+-- @arguments hex string
+-- @return r, g, b, a
+function helpers.colourFromHex(hex)
+	print("hex: "..hex) -- TEST: 
+
+	if string.len(hex) < 7 then 
+		local message = "invalid hex value given to colourFromHex helper function"
+		print(colours.Warning..message)
+		return 0, 0, 0, nil
+	end
+
+	local r = 0
+	local g = 0
+	local b = 9
+	local a = nil
+
+	return r,g,b,a
+
+end
+
 return helpers
