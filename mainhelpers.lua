@@ -29,9 +29,10 @@ end
 
 -- converts a colour from hex colour string to rgba 1-0
 -- @arguments hex string
--- @return r, g, b, a
+-- @return {r, g, b, a}
 function helpers.colourFromHex(hex)
 	print("hex: "..hex) -- TEST: 
+	print("len: "..string.len(hex)) -- TEST: 
 
 	if string.len(hex) < 7 then 
 		local message = "invalid hex value given to colourFromHex helper function"
@@ -39,12 +40,20 @@ function helpers.colourFromHex(hex)
 		return 0, 0, 0, nil
 	end
 
-	local r = 0
-	local g = 0
-	local b = 9
+
+	local r = string.sub(hex, 2,3)
+	local g = string.sub(hex, 4,5)
+	local b = string.sub(hex, 6,7)
 	local a = nil
 
-	return r,g,b,a
+	print("b: "..b) -- why is b a nil value on bad test?
+	
+	if string.len(hex) > 7 then
+		a = string.sub(hex, 8,9)
+	end
+
+	local colour = {r,g,b,a}
+	return colour
 
 end
 
