@@ -23,7 +23,12 @@ function love.load()
 
 	end
 	
-	window = { width = love.graphics.getWidth(), height = love.graphics.getHeight(), fontsize = 32 }
+	window = { 
+		width = love.graphics.getWidth(), 
+		height = love.graphics.getHeight(), fontsize = 32,
+		activeButton = "pen",
+		mouse = {cords = {0,0}},
+	}
 
 	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
 	local font = love.graphics.newFont(window.fontsize) -- font size
@@ -41,11 +46,10 @@ end
 
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
-	--
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
-	--
+--	if ui.canvas:CursorHover() -- TEST: NEED TO SET VARAIBLE ON WINDOW, HAS FOCUS
 end
 
 function love.mousereleased(x, y, button, istouch, presses)

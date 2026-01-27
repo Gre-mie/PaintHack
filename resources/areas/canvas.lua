@@ -3,7 +3,7 @@ local canvas = {}
 -- INFO: the drawing area of the window
 
 function canvas:New(x, y, width, height)
-	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil }
+	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = {0.9, 0.9, 0.9}, brushSize = 10 }
 
 	self.__index = self
 	return setmetatable(obj, self)
@@ -12,6 +12,29 @@ end
 function canvas:Debug()
 	helpUI.DebugElement(self)
 	print()
+end
+
+-- INFO: checks if the cursor is in the draw area
+-- @return bool
+function canvas:CursorHover(x, y)
+	if x >= self.x and
+		x <= (self.x + self.width) and
+		y >= self.y and
+		y <= (self.y + self.height) then
+		return true
+	else return false end
+end
+
+-- draws the cursor
+function canvas:DrawCursor(x, y)
+	love.graphics.setColor(self.paint)
+	love.graphics.circle("fill", x, y, self.brushSize/2)
+
+	linewidth = 2
+	love.graphics.setLineWidth(linewidth)
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.circle("line", x, y, self.brushSize/2)
+	
 end
 
 function canvas:Draw()
@@ -33,6 +56,10 @@ function canvas:Draw()
 		self.width - linewidth,
 		self.height - linewidth
 	)
+
+	-- draw the curser at mouse
+	self:DrawCursor(love.mouse.getPosition()) -- TEST: 
+	
 end
 
 return canvas
