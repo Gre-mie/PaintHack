@@ -30,31 +30,27 @@ end
 -- converts a colour from hex colour string to rgba 1-0
 -- @arguments hex string
 -- @return {r, g, b, a}
-function helpers.colourFromHex(hex)
-	print("hex: "..hex) -- TEST: 
-	print("len: "..string.len(hex)) -- TEST: 
-
+function helpers.colourFromHex(hex) 
 	if string.len(hex) < 7 then 
 		local message = "invalid hex value given to colourFromHex helper function"
 		print(colours.Warning..message)
 		return 0, 0, 0, nil
 	end
 
-
-	local r = string.sub(hex, 2,3)
-	local g = string.sub(hex, 4,5)
-	local b = string.sub(hex, 6,7)
-	local a = nil
-
-	print("b: "..b) -- why is b a nil value on bad test?
+	-- decimal values from 0 - 255
+	local rdec = tonumber(string.sub(hex, 2,3), 16)
+	local gdec = tonumber(string.sub(hex, 4,5), 16)
+	local bdec = tonumber(string.sub(hex, 6,7), 16)
+	local adec = nil
 	
 	if string.len(hex) > 7 then
-		a = string.sub(hex, 8,9)
+		adec = tonumber(string.sub(hex, 8,9), 16)
 	end
 
-	local colour = {r,g,b,a}
-	return colour
+	-- point values from 0 - 1
+	r,g,b,a = love.math.colorFromBytes(rdec, gdec, bdec, adec)
 
+	return {r,g,b,a}
 end
 
 return helpers

@@ -10,8 +10,8 @@ function love.load()
 	
 	running = true
 	frame = 0
-	colours = colourspackage
 	help = mainhelperspackage
+	colours = colourspackage:New()
 	
 	-- checks colours has keys/values
 		-- dont remove this check, exits if empty/nil
@@ -28,7 +28,7 @@ function love.load()
 		height = love.graphics.getHeight(), 
 		fontsize = 32,
 		activeButton = "pen",
-		mouse = {cords = {0,0}},
+		mouse = {cords = {x=0,y=0}},
 	}
 
 	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
@@ -40,53 +40,14 @@ function love.load()
 		return -- may not be working
 	end
 
-	-- TEST: vvv
-	
-	r,g,b,a = help.colourFromHex("")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-
-	r,g,b,a = help.colourFromHex("b")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-
-	r,g,b,a = help.colourFromHex("bad string")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-	
-	r,g,b,a = help.colourFromHex("bad string")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-
-	r,g,b,a = help.colourFromHex("#ff00ff")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-	
-	r,g,b,a = help.colourFromHex("#ff00ff99")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-
-	r,g,b,a = help.colourFromHex("#00ff0099ffbb")
-	if a == nil then a = "nil" end
-	print("returned: "..r.." "..g.." "..b.." "..a)
-	print()
-	-- TEST: ^^^
-
-
 end
 
 -- INFO: user detection functions
 
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
-	window.mouse.cords[1] = x
-	window.mouse.cords[2] = y
+	window.mouse.cords.x = x
+	window.mouse.cords.y = y
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
@@ -119,14 +80,19 @@ function love.draw()
 	if running ~= true then
 		return
 	end
+	
+	ui:Draw()
+
 
 	-- TEST: vv
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
 		ui:Debug()
-		--ui:Debug("areas")
+		
 	end 
+
+	love.graphics.setColor(unpack(colours.pallet.yellow))	
+	love.graphics.circle("fill", window.mouse.cords.x, window.mouse.cords.y, 50)
 	-- TEST: ^^
 
-	ui:Draw()
 end
