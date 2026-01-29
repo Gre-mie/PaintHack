@@ -12,6 +12,14 @@ function colours:New()
 		theme = {
 			
 			adventofcode = {
+				background = help.colourFromHex("#0f0f23"),
+
+				lightgreen = help.colourFromHex("#01b404"),
+				green = help.colourFromHex("#018903"),
+
+				grey = help.colourFromHex("#515156"),
+				white = help.colourFromHex("#c2c2c3"),
+
 			
 			},
 		},

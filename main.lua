@@ -29,9 +29,10 @@ function love.load()
 		fontsize = 32,
 		activeButton = "pen",
 		mouse = {cords = {x=0,y=0}},
+		theme = colours.theme.adventofcode
 	}
 
-	love.graphics.setBackgroundColor(0.50, 0.50, 0.52)
+	love.graphics.setBackgroundColor(unpack(window.theme.background))
 	local font = love.graphics.newFont(window.fontsize) -- font size
 	love.graphics.setFont(font)
 
