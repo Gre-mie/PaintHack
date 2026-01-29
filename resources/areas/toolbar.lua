@@ -28,15 +28,16 @@ function toolBar:Draw()
 
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(0.43, 0.40, 0.55) -- TODO: change this colour, setup colour file, add coloured print vars
-	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-	love.graphics.setColor(0.33, 0.28, 0.43)
+	love.graphics.setColor(window.theme.background)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, 5,5)
+	love.graphics.setColor(window.theme.green)
 	love.graphics.rectangle(
 		"line",
 		self.x + linewidth / 2,
 		self.y + linewidth / 2,
 		self.width - linewidth,
-		self.height - linewidth
+		self.height - linewidth,
+		5,5
 	)
 end
 

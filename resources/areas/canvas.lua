@@ -3,7 +3,7 @@ local canvas = {}
 -- INFO: the drawing area of the window
 
 function canvas:New(x, y, width, height)
-	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = {0.9, 0.9, 0.9}, brushSize = 10 }
+	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = colours.pallet.blue, brushSize = 20 }
 
 	self.__index = self
 	return setmetatable(obj, self)
@@ -34,7 +34,7 @@ function canvas:DrawCursor()
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(0, 0, 0)
+	love.graphics.setColor(window.theme.white)
 	love.graphics.circle("line", window.mouse.cords.x, window.mouse.cords.y, self.brushSize/2)
 	
 end
@@ -48,19 +48,17 @@ function canvas:Draw()
 	end
 
 	-- draws the canvas border
-	linewidth = 5
-	love.graphics.setColor(0.05, 0, 0.1)	-- TODO: use colours from colours file
+	linewidth = 2
+	love.graphics.setColor(window.theme.lightgreen)	-- TODO: use colours from colours file
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(
 		"line",
 		self.x + linewidth / 2,
 		self.y + linewidth / 2,
 		self.width - linewidth,
-		self.height - linewidth
-	)
-
-	-- draw the curser at mouse
-	--self:DrawCursor(love.mouse.getPosition()) -- TEST: 
+		self.height - linewidth,
+		5,5
+	) 
 	
 end
 

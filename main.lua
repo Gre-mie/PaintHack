@@ -92,8 +92,4 @@ function love.draw()
 		
 	end 
 
-	love.graphics.setColor(unpack(colours.pallet.yellow))	
-	love.graphics.circle("fill", window.mouse.cords.x, window.mouse.cords.y, 50)
-	-- TEST: ^^
-
 end

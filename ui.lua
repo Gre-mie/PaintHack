@@ -107,6 +107,7 @@ function ui:Draw()
 		section:Draw()
 
 	end
+	self.canvas:Draw()
 
 	-- draws correct curser
 	if self.canvas:CursorHover() then
