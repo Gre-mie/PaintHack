@@ -56,7 +56,10 @@ end
 function love.mousepressed(x, y, button, istouch, presses)
 	if button == 1 then
 		if ui.canvas:CursorHover() then
-		--	love.graphics.circle("fill", window.mouse.cords.x, window.mouse.cords.y, ui.canvas.brushSize)
+			love.graphics.setCanvas(ui.canvas.canvas) -- draws to the canvas element
+			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
+			love.graphics.circle("fill", window.mouse.cords.x-ui.canvas.x, window.mouse.cords.y-ui.canvas.y, ui.canvas.brushSize)
+			love.graphics.setCanvas() -- resets the canvas to main
 			print("left mouse clicked") -- TEST: 
 		end
 	end

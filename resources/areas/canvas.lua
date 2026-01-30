@@ -5,6 +5,8 @@ local canvas = {}
 function canvas:New(x, y, width, height)
 	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = colours.pallet.blue, brushSize = 20 }
 	
+	obj.canvas = love.graphics.newCanvas(width, height) -- need to draw to a canvas and draw the canvas
+	
 	window.primaryColour = obj.paint
 	self.__index = self
 	return setmetatable(obj, self)
@@ -47,6 +49,8 @@ function canvas:Draw()
 		love.graphics.setColor(unpack(self.backgroundColour)) -- unpacks the elements of a table and places them in as arguments
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	end
+
+	love.graphics.draw(self.canvas, self.x, self.y)
 
 	-- draws the canvas border
 	linewidth = 2
