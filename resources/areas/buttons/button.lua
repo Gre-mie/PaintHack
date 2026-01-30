@@ -14,6 +14,13 @@ function button:New(x, y, width, height, image)
 	return setmetatable(obj, self)
 end
 
+-- INFO: returns true if button is down and mouse is in area
+-- @return bool
+function button:Clicked()
+	
+
+end
+
 function button:Debug()
 	print(self.name)
 	print("x: " .. self.x .. " y: " .. self.y)

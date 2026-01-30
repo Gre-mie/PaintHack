@@ -4,7 +4,8 @@ local canvas = {}
 
 function canvas:New(x, y, width, height)
 	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = colours.pallet.blue, brushSize = 20 }
-
+	
+	window.primaryColour = obj.paint
 	self.__index = self
 	return setmetatable(obj, self)
 end

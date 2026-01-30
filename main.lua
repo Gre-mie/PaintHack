@@ -29,7 +29,9 @@ function love.load()
 		fontsize = 32,
 		activeButton = "pen",
 		mouse = {cords = {x=0,y=0}},
-		theme = colours.theme.adventofcode
+		theme = colours.theme.adventofcode,
+		-- INFO: other variables set during ui creation
+		-- primaryColour 
 	}
 
 	love.graphics.setBackgroundColor(unpack(window.theme.background))
@@ -52,7 +54,12 @@ function love.mousemoved(x, y, dx, dy, istouch)
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
---	if ui.canvas:CursorHover() -- TEST: NEED TO SET VARAIBLE ON WINDOW, HAS FOCUS
+	if button == 1 then
+		if ui.canvas:CursorHover() then
+		--	love.graphics.circle("fill", window.mouse.cords.x, window.mouse.cords.y, ui.canvas.brushSize)
+			print("left mouse clicked") -- TEST: 
+		end
+	end
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
