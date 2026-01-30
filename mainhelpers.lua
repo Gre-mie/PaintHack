@@ -53,4 +53,71 @@ function helpers.colourFromHex(hex)
 	return {r,g,b,a}
 end
 
+-- calculate the distance between 2 points
+-- @return distance int
+function helpers.distance(aX, aY, bX, bY)
+	local x = (bX - aX)*(bX-aX)
+	local y = (bY - aY)*(bY-aY)
+	local dist = math.sqrt(x+y)
+
+	return dist
+end
+
+-- calculate the middle point between 2 points
+-- floored to the nearest int
+-- @return x, y int
+function helpers.middlePoint(aX, aY, bX, bY)
+	local xpoint = (aX+bX)/2
+	local ypoint = (aY+bY)/2 
+	return math.floor(xpoint), math.floor(ypoint)
+end
+
+-- draws a line by filling the gaps between points
+-- @arguments fromX, fromY, toX, toY int
+function helpers.line(aX, aY, bX, bY)	
+
+	local brushSize = ui.canvas.brushSize
+	local lineWidth = ui.canvas.brushSize/2
+	
+	-- when in debug mode the points should be the same, but spaced out due to smaller lineWidth
+	if debug.active and help.len(debug.store) == 2 then
+
+		if aX ~= nil and aY ~= nil then
+			-- draws a line between points
+			love.graphics.setColor(colours.pallet.grey)
+			love.graphics.line(aX, aY, bX, bY)
+		end
+
+		-- resets the size and colour of the points
+		love.graphics.setColor(colours.pallet.red)
+		lineWidth = ui.canvas.brushSize/6
+	end
+	
+	if aX == nil or aY == nil then
+		love.graphics.circle("fill", bX, bY, lineWidth)
+		return
+	else
+
+		-- draw first and last points
+		love.graphics.circle("fill", aX, aY, lineWidth)
+		love.graphics.circle("fill", bX, bY, lineWidth)
+
+		-- recursivly draw a point between two points
+		local recurseMid = function(func, aX, aY, bX, bY)	
+			-- exit condition
+			if help.distance(aX, aY, bX, bY) <= brushSize/2 then
+				return
+			end
+			local midX, midY = help.middlePoint(aX, aY, bX, bY)
+			love.graphics.circle("fill", midX, midY, lineWidth)
+			
+			--recurse left/right
+			func(func, aX, aY, midX, midY)
+			func(func, midX, midY, bX, bY)
+		end
+
+		recurseMid(recurseMid, aX, aY, bX, bY)
+	end
+end
+
 return helpers

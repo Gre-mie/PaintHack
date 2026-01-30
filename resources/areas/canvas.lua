@@ -4,7 +4,10 @@ local canvas = {}
 
 function canvas:New(x, y, width, height)
 	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = colours.pallet.blue, brushSize = 20 }
-
+	
+	obj.canvas = love.graphics.newCanvas(width, height) -- need to draw to a canvas and draw the canvas
+	
+	window.primaryColour = obj.paint
 	self.__index = self
 	return setmetatable(obj, self)
 end
@@ -17,7 +20,7 @@ end
 -- INFO: checks if the cursor is in the draw area
 -- @return bool
 function canvas:CursorHover()
-	x, y = window.mouse.cords.x, window.mouse.cords.y
+	x, y = window.mouse.cords.current.x, window.mouse.cords.current.y
 	if x > self.x and
 		-- must be slightly smaller on right side to handle cursor leaving the window
 		x < (self.x + self.width)-1 and
@@ -29,26 +32,36 @@ end
 
 -- draws the cursor
 function canvas:DrawCursor()
-	love.graphics.setColor(self.paint)
-	love.graphics.circle("fill", x, y, self.brushSize/2)
+	if not debug.active then
+		love.graphics.setColor(self.paint)
+		love.graphics.circle("fill", x, y, self.brushSize/2)
+	end
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(window.theme.white)
-	love.graphics.circle("line", window.mouse.cords.x, window.mouse.cords.y, self.brushSize/2)
+	love.graphics.setColor(window.theme.background)
+	love.graphics.circle("line", window.mouse.cords.current.x, window.mouse.cords.current.y, self.brushSize/2)
 	
 end
 
 function canvas:Draw()
 	-- draws the background colour if set
-	-- INFO: mouse right click on colour in colour pallet, should set the background. colour should be from the colours file rgba
+	-- TODO: mouse right click on colour in colour pallet, should set the background. colour should be from the colours file rgba
 	if self.backgroundColour ~= nil and running then
 		love.graphics.setColor(unpack(self.backgroundColour)) -- unpacks the elements of a table and places them in as arguments
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	end
 
+	-- draws a lighter background 
+		-- HACKY!!!
+		-- WARNING: this is to stop the colour blend problem in the canvas
+	love.graphics.setColor(window.theme.white)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+
+	love.graphics.draw(self.canvas, self.x, self.y)
+
 	-- draws the canvas border
-	linewidth = 2
+	linewidth = 4
 	love.graphics.setColor(window.theme.lightgreen)	-- TODO: use colours from colours file
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(
