@@ -6,6 +6,7 @@ function canvas:New(x, y, width, height)
 	local obj = { name = "canvas", x = x, y = y, height = height, width = width, backgroundColour = nil, paint = colours.pallet.blue, brushSize = 20 }
 	
 	obj.canvas = love.graphics.newCanvas(width, height) -- need to draw to a canvas and draw the canvas
+	love.graphics.setBlendMode("alpha")
 	
 	window.primaryColour = obj.paint
 	self.__index = self
@@ -32,12 +33,12 @@ end
 
 -- draws the cursor
 function canvas:DrawCursor()
-	love.graphics.setColor(self.paint)
-	love.graphics.circle("fill", x, y, self.brushSize/2)
+--	love.graphics.setColor(self.paint)
+--	love.graphics.circle("fill", x, y, self.brushSize/2)
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(window.theme.white)
+	love.graphics.setColor(window.theme.background)
 	love.graphics.circle("line", window.mouse.cords.x, window.mouse.cords.y, self.brushSize/2)
 	
 end
@@ -50,10 +51,16 @@ function canvas:Draw()
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	end
 
+	-- draws a lighter background 
+		-- HACKY!!!
+		-- WARNING: this is to stop the colour blend problem in the canvas
+	love.graphics.setColor(window.theme.white)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+
 	love.graphics.draw(self.canvas, self.x, self.y)
 
 	-- draws the canvas border
-	linewidth = 2
+	linewidth = 4
 	love.graphics.setColor(window.theme.lightgreen)	-- TODO: use colours from colours file
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.rectangle(

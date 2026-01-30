@@ -12,13 +12,13 @@ function colours:New()
 		theme = {
 			
 			adventofcode = {
-				background = help.colourFromHex("#0f0f23"),
+				background = help.colourFromHex("#0f0f23ff"),
 
-				lightgreen = help.colourFromHex("#01b404"),
-				green = help.colourFromHex("#018903"),
+				lightgreen = help.colourFromHex("#01b404ff"),
+				green = help.colourFromHex("#018903ff"),
 
-				grey = help.colourFromHex("#515156"),
-				white = help.colourFromHex("#c2c2c3"),
+				grey = help.colourFromHex("#515156ff"),
+				white = help.colourFromHex("#c2c2c3ff"),
 
 			
 			},
@@ -26,12 +26,12 @@ function colours:New()
 
 		-- colours for colour pallet in toolbar
 		pallet = {
-			black = help.colourFromHex("#000000"),
-			white = help.colourFromHex("#ffffff"),
-			blue = help.colourFromHex("#7777ff"),
-			green = help.colourFromHex("#147800"),
-			yellow = help.colourFromHex("#b58600"),
-			red = help.colourFromHex("#950000"),
+			black = help.colourFromHex("#000000ff"),
+			white = help.colourFromHex("#ffffffff"),
+			blue = help.colourFromHex("#7777ffff"),
+			green = help.colourFromHex("#147800ff"),
+			yellow = help.colourFromHex("#b58600ff"),
+			red = help.colourFromHex("#950000ff"),
 		},
 
 		Warning = "\27[33mWARNING: \27[0m",
