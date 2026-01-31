@@ -21,7 +21,7 @@ end
 -- INFO: checks if the cursor is in the draw area
 -- @return bool
 function canvas:CursorHover()
-	x, y = window.mouse.cords.x, window.mouse.cords.y
+	x, y = window.mouse.cords.current.x, window.mouse.cords.current.y
 	if x > self.x and
 		-- must be slightly smaller on right side to handle cursor leaving the window
 		x < (self.x + self.width)-1 and
@@ -39,7 +39,7 @@ function canvas:DrawCursor()
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
 	love.graphics.setColor(window.theme.background)
-	love.graphics.circle("line", window.mouse.cords.x, window.mouse.cords.y, self.brushSize/2)
+	love.graphics.circle("line", window.mouse.cords.current.x, window.mouse.cords.current.y, self.brushSize/2)
 	
 end
 

@@ -28,7 +28,12 @@ function love.load()
 		height = love.graphics.getHeight(), 
 		fontsize = 32,
 		activeButton = "pen",
-		mouse = {cords = {x=0,y=0}},
+		-- WARNING: window.mouse.cords.lastx/y can be nil, use current.x/y by default
+		mouse = {
+			cords = { 
+				last= {x=nil, y=nil}, current = {x=0,y=0}
+			}
+		},
 		theme = colours.theme.adventofcode,
 		drawing = false,
 		-- INFO: other variables set during ui creation
@@ -50,26 +55,31 @@ end
 
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
-	window.mouse.cords.x = x
-	window.mouse.cords.y = y
+	-- if drawing set last cords to current before updating current
+	if window.drawing then
+		window.mouse.cords.last.x = window.mouse.cords.current.x
+		window.mouse.cords.last.y = window.mouse.cords.current.y
+
+		window.mouse.cords.current.x = x
+		window.mouse.cords.current.y = y
+	else
+		window.mouse.cords.current.x = x
+		window.mouse.cords.current.y = y
+	end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
 	if button == 1 then
 		window.drawing = true
---		if ui.canvas:CursorHover() then
---			love.graphics.setCanvas(ui.canvas.canvas) -- draws to the canvas element
---			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
---			love.graphics.circle("fill", window.mouse.cords.x-ui.canvas.x, window.mouse.cords.y-ui.canvas.y, ui.canvas.brushSize/2)
---			love.graphics.setCanvas() -- resets the canvas to main
---			print("left mouse clicked") -- TEST: 
---		end
 	end
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
 	if button == 1 then
 		window.drawing = false
+		-- set last cords back to nil when drawing stopped
+		window.mouse.cords.last.x = nil
+		window.mouse.cords.last.y = nil
 	end
 end
 
@@ -97,8 +107,8 @@ function love.update(dt)
 			love.graphics.setColor(ui.canvas.paint)
 			love.graphics.circle(
 				"fill", 
-				window.mouse.cords.x-ui.canvas.x, 
-				window.mouse.cords.y-ui.canvas.y, 
+				window.mouse.cords.current.x-ui.canvas.x, 
+				window.mouse.cords.current.y-ui.canvas.y, 
 				ui.canvas.brushSize/2
 			)
 -- TEST: vvv
