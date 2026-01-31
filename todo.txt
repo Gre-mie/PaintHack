@@ -1,7 +1,7 @@
 Next thing to work on:
 
-- draw lines instead of circles
-	- keep track of last set cords, draw from one set to the next cords = {last = {}, current = {}}
+- drawing lines doesn't work, need to draw dots from one vector to another in a line filling in all gaps 
+
 - add draw colours
 - add draw graphic and button
 - add colours to pallent (click detection)

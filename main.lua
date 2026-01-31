@@ -98,22 +98,40 @@ function love.update(dt)
 		return
 	end
 	frame = frame + 1
+
+	-- INFO: draws to the canvas element
 	if window.drawing then
 		if ui.canvas:CursorHover() then
-			love.graphics.setCanvas(ui.canvas.canvas) -- draws to the canvas element
+			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
+			local currentX = window.mouse.cords.current.x - ui.canvas.x
+			local currentY = window.mouse.cords.current.y - ui.canvas.y
+
+			local lastX = window.mouse.cords.last.x
+			if lastX ~= nil then
+				lastX = lastX - ui.canvas.x
+			end
+
+			local lastY = window.mouse.cords.last.y
+			if lastY ~= nil then
+				lastY = lastY - ui.canvas.y
+			end
+
+			-- TEST: vvv
+			print("current x:", currentX, ", y:", currentY)
+			print("last    x:", lastX, ", y:", lastY)
+			print("------")
+			-- TEST: ^^^
+
+			love.graphics.setCanvas(ui.canvas.canvas)
 			love.graphics.setBlendMode("alpha", "premultiplied") -- WARNING: colours appear darker than they should, this will be a problem later
 			
-			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
 			love.graphics.setColor(ui.canvas.paint)
 			love.graphics.circle(
 				"fill", 
-				window.mouse.cords.current.x-ui.canvas.x, 
-				window.mouse.cords.current.y-ui.canvas.y, 
+				currentX, 
+				currentY, 
 				ui.canvas.brushSize/2
 			)
--- TEST: vvv
-
--- TEST: ^^^
 
 			love.graphics.setCanvas() -- resets the canvas to main canvas
 		end
