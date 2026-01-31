@@ -28,10 +28,12 @@ function love.load()
 		height = love.graphics.getHeight(), 
 		fontsize = 32,
 		activeButton = "pen",
-		-- WARNING: window.mouse.cords.lastx/y can be nil, use current.x/y by default
+		-- WARNING: fromx/y can be nil and to.x/y can be nil. 
+			-- use from and to when drawing to the canvas
+			-- use current.x/y when drawing curser and checking cords
 		mouse = {
 			cords = { 
-				last= {x=nil, y=nil}, current = {x=0,y=0}
+				from= {x=nil, y=nil}, to = {x=nil, y=nil}, current = {x=0,y=0}
 			}
 		},
 		theme = colours.theme.adventofcode,
@@ -56,21 +58,25 @@ end
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
 	-- if drawing set last cords to current before updating current
-	if window.drawing then
-		window.mouse.cords.last.x = window.mouse.cords.current.x
-		window.mouse.cords.last.y = window.mouse.cords.current.y
-
+--	if window.drawing then
+--		window.mouse.cords.last.x = window.mouse.cords.current.x
+--		window.mouse.cords.last.y = window.mouse.cords.current.y
+--
+--		window.mouse.cords.current.x = x
+--		window.mouse.cords.current.y = y
+--	else
 		window.mouse.cords.current.x = x
 		window.mouse.cords.current.y = y
-	else
-		window.mouse.cords.current.x = x
-		window.mouse.cords.current.y = y
-	end
+--	end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
 	if button == 1 then
 		window.drawing = true
+		window.mouse.cords.from.x = x
+		window.mouse.cords.from.y = y
+		window.mouse.cords.to.x = x
+		window.mouse.cords.to.y = y
 	end
 end
 
@@ -78,8 +84,8 @@ function love.mousereleased(x, y, button, istouch, presses)
 	if button == 1 then
 		window.drawing = false
 		-- set last cords back to nil when drawing stopped
-		window.mouse.cords.last.x = nil
-		window.mouse.cords.last.y = nil
+		window.mouse.cords.from.x = nil
+		window.mouse.cords.from.y = nil
 	end
 end
 
@@ -101,24 +107,24 @@ function love.update(dt)
 
 	-- INFO: draws to the canvas element
 	if window.drawing then
+		
+		
 		if ui.canvas:CursorHover() then
+			-- update last and to cords
+			window.mouse.cords.from.x = window.mouse.cords.to.x
+			window.mouse.cords.from.y = window.mouse.cords.to.y
+			window.mouse.cords.to.x = window.mouse.cords.current.x
+			window.mouse.cords.to.y = window.mouse.cords.current.y
+
 			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
-			local currentX = window.mouse.cords.current.x - ui.canvas.x
-			local currentY = window.mouse.cords.current.y - ui.canvas.y
-
-			local lastX = window.mouse.cords.last.x
-			if lastX ~= nil then
-				lastX = lastX - ui.canvas.x
-			end
-
-			local lastY = window.mouse.cords.last.y
-			if lastY ~= nil then
-				lastY = lastY - ui.canvas.y
-			end
-
+			local toX = window.mouse.cords.to.x - ui.canvas.x
+			local toY = window.mouse.cords.to.y - ui.canvas.y
+			local fromX = window.mouse.cords.from.x - ui.canvas.x
+			local fromY = window.mouse.cords.from.y - ui.canvas.y
+			
 			-- TEST: vvv
-			print("current x:", currentX, ", y:", currentY)
-			print("last    x:", lastX, ", y:", lastY)
+			print("to      x:", toX, ", y:", toY)
+			print("from    x:", fromX, ", y:", fromY)
 			print("------")
 			-- TEST: ^^^
 
@@ -128,8 +134,8 @@ function love.update(dt)
 			love.graphics.setColor(ui.canvas.paint)
 			love.graphics.circle(
 				"fill", 
-				currentX, 
-				currentY, 
+				toX, 
+				toY, 
 				ui.canvas.brushSize/2
 			)
 
