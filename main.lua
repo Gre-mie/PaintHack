@@ -100,16 +100,9 @@ function love.mousereleased(x, y, button, istouch, presses)
 				)
 
 				love.graphics.setCanvas()
-				print("add point {x = "..x..", y ="..y.."}")
-			
 			elseif help.len(debugStore) == 2 then
-				local a = debugStore[1]
-				local b = debugStore[2]
-				love.graphics.setCanvas(ui.canvas.canvas)
-				love.graphics.setColor(colours.pallet.green)
-				love.graphics.line(a.x, a.y, b.x, b.y)
-
-				love.graphics.setCanvas()
+				debugStore = {}
+			
 			end
 		end
 
@@ -130,7 +123,6 @@ function love.keypressed(key, scancode, isrepeat)
 			print(colours.DebugMode.."ON")
 		else
 			print(colours.DebugMode.."OFF")
-			debugStore = {}
 		end
 	end
 end
@@ -183,7 +175,29 @@ function love.update(dt)
 			end
 
 			-- TEST: vvv
+			if debugMode then
+				if help.len(debugStore) == 2 then
+					local a = debugStore[1]
+					local b = debugStore[2]
+					
+					print("debugStore:")
+					for i, val in ipairs(debugStore) do
+						print("x: "..val.x..", y: "..val.y)
+					end
+
+					-- draw test line
+					love.graphics.setColor(colours.pallet.green)
+					love.graphics.line(a.x, a.y, b.x, b.y)
+
+					
+
+
+
+					print()
+					
+				end
 				
+			end
 
 			-- TEST: ^^^
 
