@@ -10,7 +10,9 @@ function love.load()
 	
 	running = true
 	frame = 0
+	-- press 'd' when program running to start debug mode
 	debugMode = false
+	debugStore = {}
 	help = mainhelperspackage
 	colours = colourspackage:New()
 	
@@ -78,7 +80,42 @@ function love.mousereleased(x, y, button, istouch, presses)
 		-- set last cords back to nil when drawing stopped
 		window.mouse.cords.from.x = nil
 		window.mouse.cords.from.y = nil
+
+		-- TEST: vvv
+		
+		if debugMode then
+			if help.len(debugStore) < 2 then
+				local x, y = love.mouse.getPosition()
+				table.insert(debugStore, {x=x - ui.canvas.x, y=y - ui.canvas.y}) -- adds the first two cords clicks
+				
+				-- draws circle at point
+				love.graphics.setCanvas(ui.canvas.canvas)
+					
+				love.graphics.setColor(colours.pallet.red)
+				love.graphics.circle(
+					"fill",
+					x - ui.canvas.x,
+					y - ui.canvas.y,
+					5
+				)
+
+				love.graphics.setCanvas()
+				print("add point {x = "..x..", y ="..y.."}")
+			
+			elseif help.len(debugStore) == 2 then
+				local a = debugStore[1]
+				local b = debugStore[2]
+				love.graphics.setCanvas(ui.canvas.canvas)
+				love.graphics.setColor(colours.pallet.green)
+				love.graphics.line(a.x, a.y, b.x, b.y)
+
+				love.graphics.setCanvas()
+			end
+		end
+
+		-- TEST: ^^^
 	end
+
 end
 
 -- INFO: KEYBOARD
@@ -86,12 +123,14 @@ function love.keypressed(key, scancode, isrepeat)
 	-- exit programe with 'Esc' key
 	if key == "escape" and isrepeat ~= true then
 		love.event.quit() -- WARNING: IOS doesn't like this and may cause restart instead
-	elseif key == "f" then
+	elseif key == "d" then
+		-- lets me use testing/debug code when the program is running
 		debugMode = not debugMode
 		if debugMode then
 			print(colours.DebugMode.."ON")
 		else
 			print(colours.DebugMode.."OFF")
+			debugStore = {}
 		end
 	end
 end
@@ -134,13 +173,19 @@ function love.update(dt)
 				--love.graphics.line(fromX, fromY, toX, toY)
 			-- TEST: ^^^
 
+			if not debugMode then
+				love.graphics.circle(
+					"fill", 
+					toX, 
+					toY, 
+					ui.canvas.brushSize/2
+				)
+			end
 
-			love.graphics.circle(
-				"fill", 
-				toX, 
-				toY, 
-				ui.canvas.brushSize/2
-			)
+			-- TEST: vvv
+				
+
+			-- TEST: ^^^
 
 
 
