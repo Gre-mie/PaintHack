@@ -96,7 +96,7 @@ function love.mousereleased(x, y, button, istouch, presses)
 					"fill",
 					x - ui.canvas.x,
 					y - ui.canvas.y,
-					5
+					ui.canvas.brushSize/2
 				)
 
 				love.graphics.setCanvas()
@@ -185,9 +185,26 @@ function love.update(dt)
 						print("x: "..val.x..", y: "..val.y)
 					end
 
+					local midx, midy = help.middlePoint(a.x, a.y, b.x, b.y)
+					print("midx: "..midx..", midy: "..midy)
+
 					-- draw test line
 					love.graphics.setColor(colours.pallet.green)
 					love.graphics.line(a.x, a.y, b.x, b.y)
+					
+					print()
+					print("distance: "..help.distance(a.x, a.y, b.x, b.y))
+					print("brush size: "..ui.canvas.brushSize)
+					if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
+						-- draw center
+						love.graphics.setColor(colours.pallet.yellow)
+						love.graphics.circle(
+							"fill",
+							midx,
+							midy,
+							ui.canvas.brushSize/4 --- smaller for now
+						)
+					end
 
 					
 

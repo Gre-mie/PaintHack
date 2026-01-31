@@ -55,7 +55,7 @@ end
 
 -- calculate the distance between 2 points
 -- @return distance int
-function helpers.distanceDetween(aX, aY, bX, bY)
+function helpers.distance(aX, aY, bX, bY) -- BROKEN !!!
 	local x = (aX - bX)*2
 	local y = (aY - bY)*2
 	return math.sqrt(x+y)
