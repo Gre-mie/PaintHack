@@ -121,23 +121,30 @@ function love.update(dt)
 			local toY = window.mouse.cords.to.y - ui.canvas.y
 			local fromX = window.mouse.cords.from.x - ui.canvas.x
 			local fromY = window.mouse.cords.from.y - ui.canvas.y
-			
-			-- TEST: vvv
-			print("to      x:", toX, ", y:", toY)
-			print("from    x:", fromX, ", y:", fromY)
-			print("------")
-			-- TEST: ^^^
 
 			love.graphics.setCanvas(ui.canvas.canvas)
 			love.graphics.setBlendMode("alpha", "premultiplied") -- WARNING: colours appear darker than they should, this will be a problem later
 			
 			love.graphics.setColor(ui.canvas.paint)
+
+			-- TODO: DRAW FROM - TO: 
+				-- draw cicle at point from and to, then recuse drawing a point at middle of points until vectors are less than ui.canvas.brushSize/2 distance
+			-- TEST: vvv
+				-- INFO: This is here as a backup. just in case I cant get vectors to work and need to fall back on this
+					-- WARNING: looks horrible
+				--love.graphics.setLineWidth(ui.canvas.brushSize)
+				--love.graphics.line(fromX, fromY, toX, toY)
+			-- TEST: ^^^
+
+
 			love.graphics.circle(
 				"fill", 
 				toX, 
 				toY, 
 				ui.canvas.brushSize/2
 			)
+
+
 
 			love.graphics.setCanvas() -- resets the canvas to main canvas
 		end
