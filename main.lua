@@ -10,6 +10,7 @@ function love.load()
 	
 	running = true
 	frame = 0
+	debugMode = false
 	help = mainhelperspackage
 	colours = colourspackage:New()
 	
@@ -57,17 +58,8 @@ end
 
 -- INFO: MOUSE
 function love.mousemoved(x, y, dx, dy, istouch)
-	-- if drawing set last cords to current before updating current
---	if window.drawing then
---		window.mouse.cords.last.x = window.mouse.cords.current.x
---		window.mouse.cords.last.y = window.mouse.cords.current.y
---
---		window.mouse.cords.current.x = x
---		window.mouse.cords.current.y = y
---	else
-		window.mouse.cords.current.x = x
-		window.mouse.cords.current.y = y
---	end
+	window.mouse.cords.current.x = x
+	window.mouse.cords.current.y = y
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
@@ -94,8 +86,14 @@ function love.keypressed(key, scancode, isrepeat)
 	-- exit programe with 'Esc' key
 	if key == "escape" and isrepeat ~= true then
 		love.event.quit() -- WARNING: IOS doesn't like this and may cause restart instead
+	elseif key == "f" then
+		debugMode = not debugMode
+		if debugMode then
+			print(colours.DebugMode.."ON")
+		else
+			print(colours.DebugMode.."OFF")
+		end
 	end
-
 end
 
 -- INFO: update application state

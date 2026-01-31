@@ -36,6 +36,7 @@ function colours:New()
 
 		Warning = "\27[33mWARNING: \27[0m",
 		Error = "\27[31mERROR: \27[0m",
+		DebugMode = "\27[92mDebug mode: \27[0m"
 	}
 
 	self.__index = self

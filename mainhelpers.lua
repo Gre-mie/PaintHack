@@ -53,4 +53,21 @@ function helpers.colourFromHex(hex)
 	return {r,g,b,a}
 end
 
+-- calculate the distance between 2 points
+-- @return distance int
+function helpers.distanceDetween(aX, aY, bX, bY)
+	local x = (aX - bX)*2
+	local y = (aY - bY)*2
+	return math.sqrt(x+y)
+end
+
+-- calculate the middle point between 2 points
+-- floored to the nearest int
+-- @return x, y int
+function helpers.middlePoint(aX, aY, bX, bY)
+	local xpoint = (aX+bX)/2
+	local ypoint = (aY+bY)/2 
+	return math.floor(xpoint), math.floor(ypoint)
+end
+
 return helpers
