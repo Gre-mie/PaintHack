@@ -108,20 +108,5 @@ function debug:addToStore(item)
 	end
 end
 
-function debug:line()
-	print("debugging line")
-end
-
--- calls functions determined on the mode
-function debug:handler()
-	if self.active then
-		if self.mode == "line" then
-			print("line Mode") -- TEST:
-		end
-
-	end
-end
-
-
 
 return debug

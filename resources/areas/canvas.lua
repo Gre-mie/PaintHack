@@ -55,8 +55,8 @@ function canvas:Draw()
 	-- draws a lighter background 
 		-- HACKY!!!
 		-- WARNING: this is to stop the colour blend problem in the canvas
---	love.graphics.setColor(window.theme.white)
---	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	love.graphics.setColor(window.theme.white)
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
 	love.graphics.draw(self.canvas, self.x, self.y)
 

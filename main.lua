@@ -83,7 +83,8 @@ function love.mousereleased(x, y, button, istouch, presses)
 		-- set last cords back to nil when drawing stopped
 		window.mouse.cords.from.x = nil
 		window.mouse.cords.from.y = nil
-
+		
+		-- debug mode options
 		if debug.active then 
 			-- add mouse cords to debug store
 			if debug.mode == "line" then
@@ -112,7 +113,7 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 -- INFO: update application state
-function love.update(dt)
+function love.update(dt) 				-- TODO: take a look at frame rate, things are being called to many times
 	if running ~= true then
 		return
 	end
@@ -149,13 +150,28 @@ function love.update(dt)
 				--love.graphics.line(fromX, fromY, toX, toY)
 			-- TEST: ^^^
 
+			-- updates canvas
 			if not debug.active then
-				love.graphics.circle(
-					"fill", 
-					toX, 
-					toY, 
-					ui.canvas.brushSize/2
-				)
+				help.line(fromX, fromY, toX, toY)
+--				love.graphics.circle(
+--					"fill", 
+--					toX, 
+--					toY, 
+--					ui.canvas.brushSize/2
+--				)
+			else 
+				-- handles debug mode
+				if debug.mode == "line" then 
+					if help.len(debug.store) == 2 then
+						local a = debug.store[1]
+						local b = debug.store[2]
+
+						help.line(a[1], a[2], b[1], b[2])
+					
+
+					end
+				end
+
 			end
 
 			-- TEST: vvv
