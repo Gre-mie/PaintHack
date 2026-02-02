@@ -180,13 +180,13 @@ function love.update(dt)
 					local a = debugStore[1]
 					local b = debugStore[2]
 					
-					print("debugStore:")
-					for i, val in ipairs(debugStore) do
-						print("x: "..val.x..", y: "..val.y)
-					end
+			--		print("debugStore:")
+			--		for i, val in ipairs(debugStore) do
+			--			print("x: "..val.x..", y: "..val.y)
+			--		end
 
 					local midx, midy = help.middlePoint(a.x, a.y, b.x, b.y)
-					print("midx: "..midx..", midy: "..midy)
+			--		print("midx: "..midx..", midy: "..midy)
 
 					-- draw test line
 					love.graphics.setColor(colours.pallet.green)

@@ -55,10 +55,12 @@ end
 
 -- calculate the distance between 2 points
 -- @return distance int
-function helpers.distance(aX, aY, bX, bY) -- BROKEN !!!
-	local x = (aX - bX)*2
-	local y = (aY - bY)*2
-	return math.sqrt(x+y)
+function helpers.distance(aX, aY, bX, bY)
+	local x = (bX - aX)*(bX-aX)
+	local y = (bY - aY)*(bY-aY)
+	local dist = math.sqrt(x+y)
+
+	return dist
 end
 
 -- calculate the middle point between 2 points
