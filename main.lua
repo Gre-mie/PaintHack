@@ -1,6 +1,7 @@
 local mainhelperspackage = require("mainhelpers")
 local colourspackage = require("colours")
 local uipackage = require("ui")
+local debugpackage = require("debugfunc")
 
 
 -- INFO: Over write call back functions
@@ -11,8 +12,7 @@ function love.load()
 	running = true
 	frame = 0
 	-- press 'd' when program running to start debug mode
-	debugMode = false
-	debugStore = {}
+	debug = debugpackage:New()
 	help = mainhelperspackage
 	colours = colourspackage:New()
 	
@@ -42,7 +42,7 @@ function love.load()
 		theme = colours.theme.adventofcode,
 		drawing = false,
 		-- INFO: other variables set during ui creation
-		-- primaryColour 
+			-- primaryColour 
 	}
 
 	love.graphics.setBackgroundColor(unpack(window.theme.background))
@@ -53,6 +53,8 @@ function love.load()
 	if running ~= true then
 		return -- may not be working
 	end
+
+	debug:changeMode() -- TEST:
 
 end
 
@@ -80,6 +82,7 @@ function love.mousereleased(x, y, button, istouch, presses)
 		-- set last cords back to nil when drawing stopped
 		window.mouse.cords.from.x = nil
 		window.mouse.cords.from.y = nil
+
 
 		-- TEST: vvv
 		
@@ -117,13 +120,14 @@ function love.keypressed(key, scancode, isrepeat)
 	if key == "escape" and isrepeat ~= true then
 		love.event.quit() -- WARNING: IOS doesn't like this and may cause restart instead
 	elseif key == "d" then
+		debug:changeMode()
 		-- lets me use testing/debug code when the program is running
-		debugMode = not debugMode
-		if debugMode then
-			print(colours.DebugMode.."ON")
-		else
-			print(colours.DebugMode.."OFF")
-		end
+--		debugMode = not debugMode
+--		if debugMode then
+--			print(colours.DebugMode.."ON")
+--		else
+--			print(colours.DebugMode.."OFF")
+--		end
 	end
 end
 

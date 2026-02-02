@@ -72,4 +72,14 @@ function helpers.middlePoint(aX, aY, bX, bY)
 	return math.floor(xpoint), math.floor(ypoint)
 end
 
+-- draws a line by filling the gaps between points
+-- @arguments point1, point2 map{x, y}, brushSize int 
+function helpers.line()
+	if debugMode then
+
+	end
+
+
+end
+
 return helpers
