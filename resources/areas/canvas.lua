@@ -32,8 +32,10 @@ end
 
 -- draws the cursor
 function canvas:DrawCursor()
-	love.graphics.setColor(self.paint)
-	love.graphics.circle("fill", x, y, self.brushSize/2)
+	if not debug.active then
+		love.graphics.setColor(self.paint)
+		love.graphics.circle("fill", x, y, self.brushSize/2)
+	end
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)

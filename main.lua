@@ -9,7 +9,7 @@ local debugpackage = require("debugfunc")
 -- INFO: load assets for setup
 function love.load()
 
-	love.graphics.setBlendMode("replace")	
+	love.graphics.setBlendMode("alpha")	
 	running = true
 	frame = 0
 	-- press 'd' when program running to start debug mode

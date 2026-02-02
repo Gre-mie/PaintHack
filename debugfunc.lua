@@ -26,8 +26,18 @@ function debug:setDebugIcon()
 
 	love.graphics.setCanvas(icon.canvas)
 	love.graphics.clear()
+	love.graphics.setColor(icon.colour)
 
-	love.graphics.print(self.mode) -- TEST:
+	local iconWidth = font:getWidth(icon.text)
+	love.graphics.print(icon.text, (icon.width/2)-(iconWidth/2), 0)
+
+	if self.mode ~= "none" then
+		local modeWidth = font:getWidth(self.mode)
+		local iconHeight = font:getHeight(icon.height)
+
+		love.graphics.print(self.mode, icon.width/2, iconHeight, 0, 0.5, 0.5, modeWidth/2, 0)
+
+	end
 
 	love.graphics.setCanvas()
 end
@@ -40,7 +50,6 @@ function debug:setMode(char)
 	-- debug line drawing 
 	elseif char == "l" then
 		self.mode = "line"
-		self:setDebugIcon()
 		print(colours.DebugMode..self.mode)
 
 	-- doesn't do anything
@@ -49,29 +58,7 @@ function debug:setMode(char)
 		self:setDebugIcon()
 		print(colours.DebugMode..self.mode)
 	end
-end
-
--- shows visual debug indicator in program
-function debug:setIcon()
-
-
-
---	local toolbar = ui.areas[2]
---	local x = toolbar.width/2
---	local y = window.height-(window.fontsize*2)
-
---	local icon = self.debugIcon
---	local iconWidth = font:getWidth(icon.text)
---	local iconHeight = font:getHeight(icon.text)
-
---	love.graphics.setColor(icon.colour)
---	love.graphics.print(icon.text, x-iconWidth/2, y-(iconHeight/2))
-	
---	if self.mode ~= "none" then 
---		local modeWidth = font:getWidth(self.mode)
---		love.graphics.print(self.mode, x, y, 0, 0.5, 0.5, x, -(iconWidth+10))
---	end
-	
+	self:setDebugIcon()
 end
 
 -- use when 
