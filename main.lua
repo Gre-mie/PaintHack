@@ -12,7 +12,6 @@ function love.load()
 	running = true
 	frame = 0
 	-- press 'd' when program running to start debug mode
-	debug = debugpackage:New()
 	help = mainhelperspackage
 	colours = colourspackage:New()
 	
@@ -46,15 +45,16 @@ function love.load()
 	}
 
 	love.graphics.setBackgroundColor(unpack(window.theme.background))
-	local font = love.graphics.newFont(window.fontsize) -- font size
+	font = love.graphics.newFont(window.fontsize) -- font size
 	love.graphics.setFont(font)
 
 	ui = uipackage:New()
+
+	debug = debugpackage:New()
+
 	if running ~= true then
 		return -- may not be working
 	end
-
-	debug:changeMode() -- TEST:
 
 end
 
@@ -83,31 +83,38 @@ function love.mousereleased(x, y, button, istouch, presses)
 		window.mouse.cords.from.x = nil
 		window.mouse.cords.from.y = nil
 
-
 		-- TEST: vvv
+
+		if debug.active then 
+			--check mode
+			--if line mode, add cords
+		end
+
+
+
 		
-		if debugMode then
-			if help.len(debugStore) < 2 then
-				local x, y = love.mouse.getPosition()
-				table.insert(debugStore, {x=x - ui.canvas.x, y=y - ui.canvas.y}) -- adds the first two cords clicks
+--		if debug.mode then
+--			if help.len(debug.store) < 2 then
+--				local x, y = love.mouse.getPosition()
+--				table.insert(debugStore, {x=x - ui.canvas.x, y=y - ui.canvas.y}) -- adds the first two cords clicks
 				
 				-- draws circle at point
-				love.graphics.setCanvas(ui.canvas.canvas)
-					
-				love.graphics.setColor(colours.pallet.red)
-				love.graphics.circle(
-					"fill",
-					x - ui.canvas.x,
-					y - ui.canvas.y,
-					ui.canvas.brushSize/2
-				)
-
-				love.graphics.setCanvas()
-			elseif help.len(debugStore) == 2 then
-				debugStore = {}
-			
-			end
-		end
+--				love.graphics.setCanvas(ui.canvas.canvas)
+--					
+--				love.graphics.setColor(colours.pallet.red)
+--				love.graphics.circle(
+--					"fill",
+--					x - ui.canvas.x,
+--					y - ui.canvas.y,
+--					ui.canvas.brushSize/2
+--				)
+--
+--				love.graphics.setCanvas()
+--			elseif help.len(debugStore) == 2 then
+--				debugStore = {}
+--			
+--			end
+--		end
 
 		-- TEST: ^^^
 	end
@@ -120,14 +127,12 @@ function love.keypressed(key, scancode, isrepeat)
 	if key == "escape" and isrepeat ~= true then
 		love.event.quit() -- WARNING: IOS doesn't like this and may cause restart instead
 	elseif key == "d" then
-		debug:changeMode()
-		-- lets me use testing/debug code when the program is running
---		debugMode = not debugMode
---		if debugMode then
---			print(colours.DebugMode.."ON")
---		else
---			print(colours.DebugMode.."OFF")
---		end
+		debug:toggle()
+	end
+
+	-- changes the debug mode if active
+	if debug.active then
+		debug:setMode(key)
 	end
 end
 
@@ -169,7 +174,7 @@ function love.update(dt)
 				--love.graphics.line(fromX, fromY, toX, toY)
 			-- TEST: ^^^
 
-			if not debugMode then
+			if not debug.active then
 				love.graphics.circle(
 					"fill", 
 					toX, 
@@ -179,46 +184,41 @@ function love.update(dt)
 			end
 
 			-- TEST: vvv
-			if debugMode then
-				if help.len(debugStore) == 2 then
-					local a = debugStore[1]
-					local b = debugStore[2]
-					
-			--		print("debugStore:")
-			--		for i, val in ipairs(debugStore) do
-			--			print("x: "..val.x..", y: "..val.y)
-			--		end
+--			if debug.active then
+--				if help.len(debug.store) == 2 then
+--					local a = debugStore[1]
+--					local b = debugStore[2]
 
-					local midx, midy = help.middlePoint(a.x, a.y, b.x, b.y)
+--					local midx, midy = help.middlePoint(a.x, a.y, b.x, b.y)
 			--		print("midx: "..midx..", midy: "..midy)
 
 					-- draw test line
-					love.graphics.setColor(colours.pallet.green)
-					love.graphics.line(a.x, a.y, b.x, b.y)
+--					love.graphics.setColor(colours.pallet.green)
+--					love.graphics.line(a.x, a.y, b.x, b.y)
 					
-					print()
-					print("distance: "..help.distance(a.x, a.y, b.x, b.y))
-					print("brush size: "..ui.canvas.brushSize)
-					if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
-						-- draw center
-						love.graphics.setColor(colours.pallet.yellow)
-						love.graphics.circle(
-							"fill",
-							midx,
-							midy,
-							ui.canvas.brushSize/4 --- smaller for now
-						)
-					end
+--					print()
+--					print("distance: "..help.distance(a.x, a.y, b.x, b.y))
+--					print("brush size: "..ui.canvas.brushSize)
+--					if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
+--						-- draw center
+--						love.graphics.setColor(colours.pallet.yellow)
+--						love.graphics.circle(
+--							"fill",
+--							midx,
+--							midy,
+--							ui.canvas.brushSize/4 --- smaller for now
+--						)
+--					end
 
 					
 
 
 
-					print()
+--					print()
 					
-				end
-				
-			end
+--				end
+--				
+--			end
 
 			-- TEST: ^^^
 
@@ -243,7 +243,18 @@ function love.draw()
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
 		ui:Debug()
+
+		print(ui.areas[2])
+
 		
-	end 
+	end
+
+	-- TEST: ^^
+	
+
+	-- shows when debug mode is active in the program
+	if debug.active then
+		debug:showIcon()	
+	end
 
 end

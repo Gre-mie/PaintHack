@@ -36,9 +36,20 @@ function colours:New()
 			red = help.colourFromHex("#950000ff"),
 		},
 
+		debug = {
+			green = help.colourFromHex("#2ee000"),
+		},
+
+		text = {
+			default = "\27[0m",
+			yellow = "\27[33m",
+			red = "\27[31m",
+			green = "\27[92m",
+		},
+
 		Warning = "\27[33mWARNING: \27[0m",
 		Error = "\27[31mERROR: \27[0m",
-		DebugMode = "\27[92mDebug mode: \27[0m"
+		DebugMode = "\27[92mDebug mode: \27[0m",
 	}
 
 	self.__index = self
