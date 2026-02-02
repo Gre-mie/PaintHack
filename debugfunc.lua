@@ -72,8 +72,38 @@ function debug:toggle()
 		end
 end
 
-function debug:addPoint()
-	if self.mode then
+function debug:addToStore(item)
+	if self.mode == "line" then
+		local x, y = unpack(item)
+		if x == nil or y == nil then
+			message = "Debug mode \"line\" requires {x,y} when adding to debug.store"
+			print(colours.Error..message)
+			-- TODO: add to logs
+			love.event.quit(1) -- WARNING: IOS doesn't like this and may cause restart instead
+			return
+		end
+		
+		-- add point to debug store and draw the point to the canvas
+		if help.len(self.store) < 2 then
+			table.insert(self.store, item)
+			print("add point x: "..x..", y: "..y)
+			
+			love.graphics.setCanvas(ui.canvas.canvas)
+					
+			love.graphics.setColor(colours.pallet.red)
+			love.graphics.circle(
+				"fill",
+				x - ui.canvas.x,
+				y - ui.canvas.y,
+				ui.canvas.brushSize/2
+			)
+
+			love.graphics.setCanvas()	
+
+		else
+			self.store = {}
+		end
+
 
 	end
 end

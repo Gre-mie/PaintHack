@@ -20,7 +20,7 @@ function love.load()
 		-- dont remove this check, exits if empty/nil
 	if help.len(colours) == 0 then
 		message = "colours is len 0"
-		print("\27[31mERROR: ", message)
+		print("\27[31mERROR: \27[0m"..message)
 		-- TODO: add to logs
 		love.event.quit(1) -- WARNING: IOS doesn't like this and may cause restart instead
 
@@ -84,40 +84,14 @@ function love.mousereleased(x, y, button, istouch, presses)
 		window.mouse.cords.from.x = nil
 		window.mouse.cords.from.y = nil
 
-		-- TEST: vvv
-
 		if debug.active then 
-			--check mode
-			--if line mode, add cords
+			-- add mouse cords to debug store
+			if debug.mode == "line" then
+				local mousex, mousey = love.mouse.getPosition()
+				debug:addToStore({mousex, mousey})
+			end
 		end
 
-
-
-		
---		if debug.mode then
---			if help.len(debug.store) < 2 then
---				local x, y = love.mouse.getPosition()
---				table.insert(debugStore, {x=x - ui.canvas.x, y=y - ui.canvas.y}) -- adds the first two cords clicks
-				
-				-- draws circle at point
---				love.graphics.setCanvas(ui.canvas.canvas)
---					
---				love.graphics.setColor(colours.pallet.red)
---				love.graphics.circle(
---					"fill",
---					x - ui.canvas.x,
---					y - ui.canvas.y,
---					ui.canvas.brushSize/2
---				)
---
---				love.graphics.setCanvas()
---			elseif help.len(debugStore) == 2 then
---				debugStore = {}
---			
---			end
---		end
-
-		-- TEST: ^^^
 	end
 
 end
