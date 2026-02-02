@@ -4,13 +4,35 @@ local colours = require("colours"):New()
 local debug = {}
 
 function debug:New()
-	local obj = {active = false, mode = "none", store = {}, debugIcon = {text = "D", colour = colours.debug.green}} 	
+	local obj = {active = false, mode = "none", store = {}, debugIcon = {
+		text = "D", 
+		colour = colours.debug.green, 
+		width = ui.areas[2].width,
+		height = ui.areas[2].width,
+	}}
+
+	-- add icon canvas
+	obj.debugIcon.canvas = love.graphics.newCanvas(obj.debugIcon.width, obj.debugIcon.height)
+
+
 
 	self.__index = self
 	return setmetatable(obj, self)
 end
 
--- sets the debug mode
+-- clears and adds to the debug icon canvas
+function debug:setDebugIcon()
+	local icon = self.debugIcon
+
+	love.graphics.setCanvas(icon.canvas)
+	love.graphics.clear()
+
+	love.graphics.print(self.mode) -- TEST:
+
+	love.graphics.setCanvas()
+end
+
+-- sets the debug mode and changes the debugIcon canvas
 function debug:setMode(char)
 	if char == nil then
 		self.mode = "none"
@@ -18,27 +40,37 @@ function debug:setMode(char)
 	-- debug line drawing 
 	elseif char == "l" then
 		self.mode = "line"
+		self:setDebugIcon()
+		print(colours.DebugMode..self.mode)
+
+	-- doesn't do anything
+	elseif char == "t" then
+		self.mode = "test"
+		self:setDebugIcon()
 		print(colours.DebugMode..self.mode)
 	end
 end
 
 -- shows visual debug indicator in program
-function debug:showIcon()
-	local toolbar = ui.areas[2]
-	local x = toolbar.width/2
-	local y = window.height-(window.fontsize*2)
+function debug:setIcon()
 
-	local icon = self.debugIcon
-	local iconWidth = font:getWidth(icon.text)
-	local iconHeight = font:getHeight(icon.text)
 
-	love.graphics.setColor(icon.colour)
-	love.graphics.print(icon.text, x-iconWidth/2, y-(iconHeight/2))
+
+--	local toolbar = ui.areas[2]
+--	local x = toolbar.width/2
+--	local y = window.height-(window.fontsize*2)
+
+--	local icon = self.debugIcon
+--	local iconWidth = font:getWidth(icon.text)
+--	local iconHeight = font:getHeight(icon.text)
+
+--	love.graphics.setColor(icon.colour)
+--	love.graphics.print(icon.text, x-iconWidth/2, y-(iconHeight/2))
 	
-	if self.mode ~= "none" then 
-		local modeWidth = font:getWidth(self.mode)
-		love.graphics.print(self.mode, x, y, 0, 0.5, 0.5, x, -(iconWidth+10))
-	end
+--	if self.mode ~= "none" then 
+--		local modeWidth = font:getWidth(self.mode)
+--		love.graphics.print(self.mode, x, y, 0, 0.5, 0.5, x, -(iconWidth+10))
+--	end
 	
 end
 

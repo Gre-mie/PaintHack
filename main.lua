@@ -8,7 +8,8 @@ local debugpackage = require("debugfunc")
 
 -- INFO: load assets for setup
 function love.load()
-	
+
+	love.graphics.setBlendMode("replace")	
 	running = true
 	frame = 0
 	-- press 'd' when program running to start debug mode
@@ -161,7 +162,7 @@ function love.update(dt)
 			local fromY = window.mouse.cords.from.y - ui.canvas.y
 
 			love.graphics.setCanvas(ui.canvas.canvas)
-			love.graphics.setBlendMode("alpha", "premultiplied") -- WARNING: colours appear darker than they should, this will be a problem later
+--			love.graphics.setBlendMode("alpha", "premultiplied") -- WARNING: colours appear darker than they should, this will be a problem later
 			
 			love.graphics.setColor(ui.canvas.paint)
 
@@ -254,7 +255,7 @@ function love.draw()
 
 	-- shows when debug mode is active in the program
 	if debug.active then
-		debug:showIcon()	
+		love.graphics.draw(debug.debugIcon.canvas, 0, window.height-debug.debugIcon.height)	
 	end
 
 end
