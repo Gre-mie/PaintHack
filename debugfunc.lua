@@ -4,12 +4,7 @@ local colours = require("colours"):New()
 local debug = {}
 
 function debug:New()
-	local obj = {active = false, mode = "none", store = {}, debugIcon = {text = "D", colour = colours.debug.green}} 
-
-	local toolbar = ui.areas[2]
-	obj.debugIcon.x = toolbar.width/2
-	obj.debugIcon.y = window.height-(window.fontsize*2-10)
-	
+	local obj = {active = false, mode = "none", store = {}, debugIcon = {text = "D", colour = colours.debug.green}} 	
 
 	self.__index = self
 	return setmetatable(obj, self)
@@ -27,12 +22,24 @@ function debug:setMode(char)
 	end
 end
 
+-- shows visual debug indicator in program
 function debug:showIcon()
+	local toolbar = ui.areas[2]
+	local x = toolbar.width/2
+	local y = window.height-(window.fontsize*2)
+
 	local icon = self.debugIcon
-	local textWidth = font:getWidth(icon.text)
+	local iconWidth = font:getWidth(icon.text)
+	local iconHeight = font:getHeight(icon.text)
 
 	love.graphics.setColor(icon.colour)
-	love.graphics.print(icon.text, icon.x-textWidth/2, icon.y)
+	love.graphics.print(icon.text, x-iconWidth/2, y-(iconHeight/2))
+	
+	if self.mode ~= "none" then 
+		local modeWidth = font:getWidth(self.mode)
+		love.graphics.print(self.mode, x, y, 0, 0.5, 0.5, x, -(iconWidth+10))
+	end
+	
 end
 
 -- use when 
