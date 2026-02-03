@@ -1,6 +1,7 @@
 Next thing to work on:
 
-- drawing lines doesn't work, need to draw dots from one vector to another in a line filling in all gaps 
+- drawing lines doesn't work, need to draw dots from one vector to another in a line filling in all gaps
+		-- may need to turn debug canvas into an image
 
 - add draw colours
 - add draw graphic and button
