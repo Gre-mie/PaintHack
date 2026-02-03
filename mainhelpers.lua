@@ -76,17 +76,13 @@ end
 -- @arguments point1, point2 map{x, y}, brushSize int 
 function helpers.line(aX, aY, bX, bY)
 
-	-- changes colours a mid point size for debugging
-	if debugMode then
-		
-	end
-
 	-- TODO: WRITE THE FUNCTION
-	print("from x: "..aX..", y: "..aY)
-	print("to   x: "..bX..", y: "..bY)
-	print()
-	love.graphics.setColor(colours.pallet.green)
+	
+	if debug.active and help.len(debug.store) == 2 then
 	love.graphics.line(aX, aY, bX, bY)
+	else
+		--
+	end
 
 
 end

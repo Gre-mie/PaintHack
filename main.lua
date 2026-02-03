@@ -155,24 +155,25 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 			-- updates canvas
 			if not debug.active then
 				help.line(fromX, fromY, toX, toY)
---				love.graphics.circle(
---					"fill", 
---					toX, 
---					toY, 
---					ui.canvas.brushSize/2
---				)
+				love.graphics.circle(
+					"fill", 
+					toX, 
+					toY, 
+					ui.canvas.brushSize/2
+				)
 			else 
 				-- handles debug mode
 				if debug.mode == "line" then 
 					if help.len(debug.store) == 2 then
-						local a = debug.store[1]
-						local b = debug.store[2]
+--						local a = debug.store[1]
+--						local b = debug.store[2]
 
-						help.line(
-							a[1] - offsetx, 
-							a[2] - offsety, 
-							b[1] - offsetx, 
-							b[2] - offsety)
+						debug:line(help.line, offsetx, offsety)
+		--				help.line(
+		--					a[1] - offsetx, 
+		--					a[2] - offsety, 
+		--					b[1] - offsetx, 
+		--					b[2] - offsety)
 					
 
 					end

@@ -9,7 +9,9 @@ function debug:New()
 		colour = colours.debug.green, 
 		width = ui.areas[2].width,
 		height = ui.areas[2].width,
-	}}
+		},
+		wait = false, -- varible used to halt other parts of the code
+	}
 
 	-- add icon canvas
 	obj.debugIcon.canvas = love.graphics.newCanvas(obj.debugIcon.width, obj.debugIcon.height)
@@ -77,6 +79,8 @@ function debug:toggle()
 end
 
 function debug:addToStore(item)
+
+	-- if line
 	if self.mode == "line" then
 		local x, y = unpack(item)
 		if x == nil or y == nil then
@@ -88,7 +92,7 @@ function debug:addToStore(item)
 		end
 		
 		-- add point to debug store and draw the point to the canvas
-		if help.len(self.store) < 2 then
+		if help.len(self.store) < 2 and not self.wait then
 			table.insert(self.store, item)
 
 			print("---- frame: "..frame.."----") -- TEST:
@@ -106,13 +110,33 @@ function debug:addToStore(item)
 			)
 
 			love.graphics.setCanvas()	
-
-		else
-			self.store = {}
+		else 
+			self.wait = false -- take back functionality
 		end
 
 
 	end
+end
+
+-- calls the line function with debug settings
+function debug:line(func, offsetx, offsety)
+	if help.len(self.store) == 2 then
+
+		local a = self.store[1]
+		local b = self.store[2]
+
+		print("aX: "..a[1]..", aY: "..a[2])
+		print("bX: "..b[1]..", bY: "..b[2])
+		print()
+
+		love.graphics.setColor(colours.pallet.yellow)
+		func(a[1]-offsetx, a[2]-offsety, b[1]-offsetx, b[2]-offsety)
+
+		-- reset store
+		self.wait = true
+		self.store = {}
+	end
+
 end
 
 
