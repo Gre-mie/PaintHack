@@ -39,7 +39,7 @@ function canvas:DrawCursor()
 
 	linewidth = 2
 	love.graphics.setLineWidth(linewidth)
-	love.graphics.setColor(window.theme.white)
+	love.graphics.setColor(window.theme.background)
 	love.graphics.circle("line", window.mouse.cords.current.x, window.mouse.cords.current.y, self.brushSize/2)
 	
 end

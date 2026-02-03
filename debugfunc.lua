@@ -86,6 +86,9 @@ function debug:addToStore(item)
 		-- add point to debug store and draw the point to the canvas
 		if help.len(self.store) < 2 then
 			table.insert(self.store, item)
+
+			print("---- frame: "..frame.."----") -- TEST:
+
 			print("add point x: "..x..", y: "..y)
 			
 			love.graphics.setCanvas(ui.canvas.canvas)

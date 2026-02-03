@@ -131,10 +131,12 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 			window.mouse.cords.to.y = window.mouse.cords.current.y
 
 			-- canvas gets an offest of canvas.x/y, so it most be reflected when adding to the canvas
-			local toX = window.mouse.cords.to.x - ui.canvas.x
-			local toY = window.mouse.cords.to.y - ui.canvas.y
-			local fromX = window.mouse.cords.from.x - ui.canvas.x
-			local fromY = window.mouse.cords.from.y - ui.canvas.y
+			local offsetx = ui.canvas.x
+			local offsety = ui.canvas.y
+			local toX = window.mouse.cords.to.x - offsetx
+			local toY = window.mouse.cords.to.y - offsety
+			local fromX = window.mouse.cords.from.x - offsetx
+			local fromY = window.mouse.cords.from.y - offsety
 
 			love.graphics.setCanvas(ui.canvas.canvas)
 --			love.graphics.setBlendMode("alpha", "premultiplied") -- WARNING: colours appear darker than they should, this will be a problem later
@@ -166,7 +168,11 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 						local a = debug.store[1]
 						local b = debug.store[2]
 
-						help.line(a[1], a[2], b[1], b[2])
+						help.line(
+							a[1] - offsetx, 
+							a[2] - offsety, 
+							b[1] - offsetx, 
+							b[2] - offsety)
 					
 
 					end
