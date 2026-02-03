@@ -196,7 +196,7 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 --					print()
 --					print("distance: "..help.distance(a.x, a.y, b.x, b.y))
 --					print("brush size: "..ui.canvas.brushSize)
---					if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
+--	this should be sooner		if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
 --						-- draw center
 --						love.graphics.setColor(colours.pallet.yellow)
 --						love.graphics.circle(

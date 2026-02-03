@@ -68,6 +68,10 @@ function debug:toggle()
 			print(colours.DebugMode.."ON")
 		else
 			self:setMode()
+			-- clears the canvas when debug mode is turned off
+			love.graphics.setCanvas(ui.canvas.canvas)
+			love.graphics.clear()
+			love.graphics.setCanvas()
 			print(colours.DebugMode.."OFF")
 		end
 end
