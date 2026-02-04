@@ -83,7 +83,7 @@ function helpers.line(aX, aY, bX, bY)
 	if debug.active and help.len(debug.store) == 2 then
 
 		if aX ~= nil and aY ~= nil then
-			-- draws the line
+			-- draws a line between points
 			love.graphics.setColor(colours.pallet.grey)
 			love.graphics.line(aX, aY, bX, bY)
 		end
@@ -114,17 +114,10 @@ function helpers.line(aX, aY, bX, bY)
 			--recurse left/right
 			func(func, aX, aY, midX, midY)
 			func(func, midX, midY, bX, bY)
-
-
-
 		end
 
 		recurseMid(recurseMid, aX, aY, bX, bY)
-
-
 	end
-
-
 end
 
 return helpers

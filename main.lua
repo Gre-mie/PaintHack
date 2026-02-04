@@ -69,12 +69,19 @@ end
 
 function love.mousepressed(x, y, button, istouch, presses)
 	if button == 1 then
+		-- TODO: CHECK THE AREA
+
+		-- should exicute if press happened inside the canvas
 		window.drawing = true
 		window.mouse.cords.from.x = x
 		window.mouse.cords.from.y = y
 		window.mouse.cords.to.x = x
 		window.mouse.cords.to.y = y
+
+		-- check if mouse is in the options bar, if true check buttons and exicute if needed
 	end
+
+
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
@@ -113,7 +120,7 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 -- INFO: update application state
-function love.update(dt) 				-- TODO: take a look at frame rate, things are being called to many times
+function love.update(dt)
 	if running ~= true then
 		return
 	end
@@ -143,15 +150,6 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 			
 			love.graphics.setColor(ui.canvas.paint)
 
-			-- TODO: DRAW FROM - TO: 
-				-- draw cicle at point from and to, then recuse drawing a point at middle of points until vectors are less than ui.canvas.brushSize/2 distance
-			-- TEST: vvv
-				-- INFO: This is here as a backup. just in case I cant get vectors to work and need to fall back on this
-					-- WARNING: looks horrible
-				--love.graphics.setLineWidth(ui.canvas.brushSize)
-				--love.graphics.line(fromX, fromY, toX, toY)
-			-- TEST: ^^^
-
 			-- updates canvas
 			if not debug.active then
 				help.line(fromX, fromY, toX, toY)
@@ -162,54 +160,11 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 						debug:line(help.line, offsetx, offsety)
 					end
 				end
-
 			end
-
-			-- TEST: vvv
---			if debug.active then
---				if help.len(debug.store) == 2 then
---					local a = debugStore[1]
---					local b = debugStore[2]
-
---					local midx, midy = help.middlePoint(a.x, a.y, b.x, b.y)
-			--		print("midx: "..midx..", midy: "..midy)
-
-					-- draw test line
---					love.graphics.setColor(colours.pallet.green)
---					love.graphics.line(a.x, a.y, b.x, b.y)
-					
---					print()
---					print("distance: "..help.distance(a.x, a.y, b.x, b.y))
---					print("brush size: "..ui.canvas.brushSize)
---	this should be sooner		if help.distance(a.x, a.y, b.x, b.y) >= ui.canvas.brushSize then
---						-- draw center
---						love.graphics.setColor(colours.pallet.yellow)
---						love.graphics.circle(
---							"fill",
---							midx,
---							midy,
---							ui.canvas.brushSize/4 --- smaller for now
---						)
---					end
-
-					
-
-
-
---					print()
-					
---				end
---				
---			end
-
-			-- TEST: ^^^
-
-
 
 			love.graphics.setCanvas() -- resets the canvas to main canvas
 		end
 	end
-
 end
 
 -- INFO: render to window

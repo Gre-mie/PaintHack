@@ -63,7 +63,7 @@ function debug:setMode(char)
 	self:setDebugIcon()
 end
 
--- use when 
+-- toggles debug on and off 
 function debug:toggle()
 	self.active = not self.active
 		if self.active then
@@ -94,8 +94,6 @@ function debug:addToStore(item)
 		-- add point to debug store and draw the point to the canvas
 		if help.len(self.store) < 2 and not self.wait then
 			table.insert(self.store, item)
-
-			print("---- frame: "..frame.."----") -- TEST:
 
 			print("add point x: "..x..", y: "..y)
 			
