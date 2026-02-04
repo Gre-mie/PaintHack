@@ -155,12 +155,6 @@ function love.update(dt) 				-- TODO: take a look at frame rate, things are bein
 			-- updates canvas
 			if not debug.active then
 				help.line(fromX, fromY, toX, toY)
-				love.graphics.circle(
-					"fill", 
-					toX, 
-					toY, 
-					ui.canvas.brushSize/2
-				)
 			else 
 				-- handles debug mode
 				if debug.mode == "line" then 

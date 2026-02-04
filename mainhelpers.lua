@@ -73,15 +73,41 @@ function helpers.middlePoint(aX, aY, bX, bY)
 end
 
 -- draws a line by filling the gaps between points
--- @arguments point1, point2 map{x, y}, brushSize int 
-function helpers.line(aX, aY, bX, bY)
+-- @arguments fromX, fromY, toX, toY int
+function helpers.line(aX, aY, bX, bY)	
 
-	-- TODO: WRITE THE FUNCTION
+	local brushSize = ui.canvas.brushSize
+	local lineWidth = ui.canvas.brushSize/2
 	
+	-- when in debug mode the points should be the same, but spaced out due to smaller lineWidth
 	if debug.active and help.len(debug.store) == 2 then
-	love.graphics.line(aX, aY, bX, bY)
+
+		if aX ~= nil and aY ~= nil then
+			-- draws the line
+			love.graphics.setColor(colours.pallet.green)
+			love.graphics.line(aX, aY, bX, bY)
+		end
+
+		-- resets the size and colour of the points
+		love.graphics.setColor(colours.pallet.yellow)
+		lineWidth = ui.canvas.brushSize/4
+	end
+	
+	if aX == nil or aY == nil then
+		love.graphics.circle("fill", bX, bY, lineWidth)
+		return
 	else
-		--
+
+		-- draw first and last points
+		love.graphics.circle("fill", aX, aY, lineWidth)
+		love.graphics.circle("fill", bX, bY, lineWidth)
+
+		-- recursivly draw a point between two points
+
+		-- if distance is grater
+		-- draw mid, recurse left/right
+		-- 	local recurseMid = function(func, aX, aY, bX, bY) 
+		-- 	end
 	end
 
 

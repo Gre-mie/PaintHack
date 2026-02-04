@@ -129,7 +129,7 @@ function debug:line(func, offsetx, offsety)
 		print("bX: "..b[1]..", bY: "..b[2])
 		print()
 
-		love.graphics.setColor(colours.pallet.yellow)
+	--	love.graphics.setColor(colours.pallet.yellow)
 		func(a[1]-offsetx, a[2]-offsety, b[1]-offsetx, b[2]-offsety)
 
 		-- reset store
