@@ -84,13 +84,13 @@ function helpers.line(aX, aY, bX, bY)
 
 		if aX ~= nil and aY ~= nil then
 			-- draws the line
-			love.graphics.setColor(colours.pallet.green)
+			love.graphics.setColor(colours.pallet.grey)
 			love.graphics.line(aX, aY, bX, bY)
 		end
 
 		-- resets the size and colour of the points
-		love.graphics.setColor(colours.pallet.yellow)
-		lineWidth = ui.canvas.brushSize/4
+		love.graphics.setColor(colours.pallet.red)
+		lineWidth = ui.canvas.brushSize/6
 	end
 	
 	if aX == nil or aY == nil then
@@ -103,11 +103,25 @@ function helpers.line(aX, aY, bX, bY)
 		love.graphics.circle("fill", bX, bY, lineWidth)
 
 		-- recursivly draw a point between two points
+		local recurseMid = function(func, aX, aY, bX, bY)	
+			-- exit condition
+			if help.distance(aX, aY, bX, bY) <= brushSize/2 then
+				return
+			end
+			local midX, midY = help.middlePoint(aX, aY, bX, bY)
+			love.graphics.circle("fill", midX, midY, lineWidth)
+			
+			--recurse left/right
+			func(func, aX, aY, midX, midY)
+			func(func, midX, midY, bX, bY)
 
-		-- if distance is grater
-		-- draw mid, recurse left/right
-		-- 	local recurseMid = function(func, aX, aY, bX, bY) 
-		-- 	end
+
+
+		end
+
+		recurseMid(recurseMid, aX, aY, bX, bY)
+
+
 	end
 
 

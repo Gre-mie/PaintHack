@@ -30,10 +30,12 @@ function colours:New()
 		pallet = {
 			black = help.colourFromHex("#000000ff"),
 			white = help.colourFromHex("#ffffffff"),
+			grey = help.colourFromHex("#898989ff"),
 			blue = help.colourFromHex("#7777ffff"),
 			green = help.colourFromHex("#147800ff"),
 			yellow = help.colourFromHex("#b58600ff"),
 			red = help.colourFromHex("#950000ff"),
+			pink = help.colourFromHex("#bc45a8ff"),
 		},
 
 		debug = {
