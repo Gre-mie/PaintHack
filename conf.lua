@@ -3,6 +3,8 @@ function love.conf(t)
 	t.version = "11.5"
 	t.window.icon = "resources/images/icon.png" -- INFO: may not show on small window bars
 	t.gammacorrect = true
+	t.console = false -- developer console
+
 
 	-- window
 	t.window.title = "PaintHack"
@@ -27,5 +29,8 @@ function love.conf(t)
 	t.modules.video = false
 	t.modules.data = false -- WARNING: may need this later for saving
 	t.modules.audio = false -- WARNING: may need this later for playing sounds
-	t.modules.audio = false -- WARNING: may need this later for decoding sound files
+	t.modules.sound = false -- WARNING: may need this later for decoding sound files
+	t.modules.thread = false
+	t.modules.timer = false
+	t.modules.touch = false
 end
