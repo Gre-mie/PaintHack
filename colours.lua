@@ -1,18 +1,9 @@
 local help = require("mainhelpers")
-
--- INFO: holds all colours.
-	-- colours to be set when drawing to the window: rgb 0-255 converted to rgb 0-1
-	-- colours for terminal print are strings that use excape codes
-
 local colours = {}
 
--- inserts hex colours as rgba 0-1 arrays
 function colours:New()
 	obj = {
-
-		-- themes for ui
 		theme = {
-			
 			adventofcode = {
 				background = help.colourFromHex("#0f0f23ff"),
 
@@ -21,12 +12,8 @@ function colours:New()
 
 				grey = help.colourFromHex("#515156ff"),
 				white = help.colourFromHex("#c2c2c3ff"),
-
-			
 			},
 		},
-
-		-- colours for colour pallet in toolbar
 		pallet = {
 			black = help.colourFromHex("#000000ff"),
 			white = help.colourFromHex("#ffffffff"),
@@ -37,26 +24,21 @@ function colours:New()
 			red = help.colourFromHex("#950000ff"),
 			pink = help.colourFromHex("#bc45a8ff"),
 		},
-
 		debug = {
 			green = help.colourFromHex("#2ee000"),
 		},
-
 		text = {
 			default = "\27[0m",
 			yellow = "\27[33m",
 			red = "\27[31m",
 			green = "\27[92m",
 		},
-
 		Warning = "\27[33mWARNING: \27[0m",
 		Error = "\27[31mERROR: \27[0m",
 		DebugMode = "\27[92mDebug mode: \27[0m",
 	}
-
 	self.__index = self
 	setmetatable(obj, self)
-
 	return obj
 end
 

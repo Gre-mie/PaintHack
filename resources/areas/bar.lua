@@ -1,25 +1,17 @@
 local bar = {}
-
--- INFO: base ui object to be inherited
-
-function bar:New() -- WARNING: padding is the padding on ONE side
+function bar:New()
 	obj = { name = "default bar", x = 200, y = 200, width = 200, height = 200, padding = 5, buttons = {} }
 	self.__index = self
 	local object = setmetatable(obj, self)
-
 	return object
 end
-
 function bar:Debug()
 	helpUI.DebugElement(self)
 	if self.name ~= "default bar" then
 		message = self.name .. " does not yet have a Debug function"
 		print(colours.Warning .. message)
-		-- TODO: append to log
 	end
 end
-
--- INFO: prints the buttons at their xy cords. Buttons holde their own location
 function bar:DrawButtons()
 	for i = 1, help.len(self.buttons) do
 		local button = self.buttons[i]
@@ -29,23 +21,15 @@ function bar:DrawButtons()
 		end
 	end
 end
-
--- INFO: this function should be overwriten by the object that inherits
 function bar:Draw()
 	if running ~= true then
-		return -- may not be working yet
+		return
 	end
-
-	-- fallback texture
 	local linewidth = 10
-
 	if frame <= 1 then
 		local message = self.name .. ", is drawing default bar texture"
 		print(colours.Warning .. message)
-		-- TODO: append to log
 	end
-
-	-- TODO: CHANGE TO DEBUG COLOURS
 	love.graphics.setLineWidth(linewidth, "smooth")
 	love.graphics.setColor(0.6, 0.6, 0.3)
 	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -57,7 +41,6 @@ function bar:Draw()
 		self.width - linewidth,
 		self.height - linewidth
 	)
-
 end
 
 return bar

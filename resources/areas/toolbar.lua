@@ -1,31 +1,20 @@
 local bar = require("resources/areas/bar")
-
--- INFO: UI for toolbar, eg pen, rubber
-
 local toolBar = bar:New()
-
--- WARNING: toolBar:New will call objects that load their own sprites
 function toolBar:New(y)
 	obj = self
 	obj.name = "tool bar"
-	-- measure height of images
-	local imageWidth = 64 -- TEST:
+	local imageWidth = 64
 	obj.x, obj.y, obj.width, obj.height = 0, y, (self.padding * 2) + imageWidth, window.height - y
-	-- TODO: add buttons
-
 	return obj
 end
-
 function toolBar:Debug()
 	helpUI.DebugElement(self)
 	print()
 end
-
 function toolBar:Draw()
 	if running ~= true then
-		return -- may not yet be working
+		return
 	end
-
 	local linewidth = 4
 	love.graphics.setLineWidth(linewidth)
 	love.graphics.setColor(window.theme.background)

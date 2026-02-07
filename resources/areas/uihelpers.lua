@@ -1,8 +1,4 @@
--- INFO: helper functions used in bar objects
-
 local helpers = {}
-
--- prints element information
 function helpers.DebugElement(element)
 	print(element.name)
 	print("x: " .. element.x .. " y: " .. element.y)

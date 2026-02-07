@@ -1,47 +1,26 @@
 helpUI = require("resources/areas/uihelpers")
-
 local uiprogrambar = require("resources/areas/programbar")
 local uitoolbar = require("resources/areas/toolbar")
 local uioptionsbar = require("resources/areas/optionsbar")
 local uicanvas = require("resources/areas/canvas")
-
 local ui = {}
-
---[[ INFO: ui holds all the areas and updates the elements
-   WARNING: ui:New should only be used ONCE in love.load
- 	uses ui bars that load their own sprites during creation
---]]
 function ui:New()
-
-	-- TODO: figgur out why the function runs past return in the bar existence checks
-
-	-- INFO: create ui areas, sizes are fixed
 	local programBar = uiprogrambar:New()
 	if programBar == nil then
 		local message = "programBar wasn't created"
 		print(colours.Error..message)
-		-- TODO: add to log
 		running = false
 		love.event.quit(1)
 		return
-		print("!!! this shouldn't print")
 	end
-
-	-- @arguments: y
 	local toolBar = uitoolbar:New(programBar.height)
 	if toolBar == nil then
 		local message = "toolBar wasn't created"
 		print(colours.Error..message)
-		-- TODO: add to log
 		running = false
 		love.event.quit(1)
 		return
-		print("!!! this shouldn't print")
 	end
-
-	-- @arguments: x, y, width, height
-	-- WARNING: height is calculated before images are measured, image size changes may cause issues
-	-- 	uses toolbar padding
 	local optionsBarHeight = (toolBar.padding * 2) + 128
 	local optionsBar = uioptionsbar:New(
 		toolBar.width,
@@ -52,14 +31,10 @@ function ui:New()
 	if optionsBar == nil then
 		local message = "optionsBar wasn't created"
 		print(colours.Error..message)
-		-- TODO: add to logs
 		running = false
 		love.event.quit(1)
 		return
-		print("!!! this shouldn't print")
 	end
-
-	-- @arguments: x, y, width, height
 	local canvas = uicanvas:New(
 		toolBar.width,
 		programBar.height,
@@ -69,47 +44,32 @@ function ui:New()
 	if canvas == nil then
 		local message = "canvas wasn't created"
 		print(colours.Error..message)
-		-- TODO: add to log
 		running = false
 		love.event.quit(1)
 		return
-		print("!!! this shouldn't print")
 	end
-
 	local obj = { name = "ui", areas = { programBar, toolBar, optionsBar }, canvas = canvas }
-
 	self.__index = self
 	return setmetatable(obj, self)
 end
-
--- prints basic ui info
-	-- "areas" prints the debug for each area of the ui
--- @arguments type string
 function ui:Debug(type)
 	print(self.name)
 	print("areas: " .. help.len(self.areas))
-
 	if type == "areas" then
 		for _, section in ipairs(self.areas) do
 			section:Debug()
 		end
 	end
 end
-
 function ui:Draw()
 	if running ~= true then
 		return -- may not be working
 	end
-	
-	-- draw areass
 	for i = 1, help.len(self.areas) do
 		local section = self.areas[i]
 		section:Draw()
-
 	end
 	self.canvas:Draw()
-
-	-- draws correct curser
 	if self.canvas:CursorHover() then
 		if love.mouse.isVisible() then
 			love.mouse.setVisible(false)
