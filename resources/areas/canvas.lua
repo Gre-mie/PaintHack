@@ -13,7 +13,7 @@ function canvas:New(x, y, width, height)
 end
 
 function canvas:Debug()
-	helpUI.DebugElement(self)
+	help.DebugElement(self)
 	print()
 end
 

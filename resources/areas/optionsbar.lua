@@ -1,4 +1,5 @@
 local bar = require("resources/areas/bar")
+local testbutton = require("resources/buttons/button")
 
 -- INFO: UI for toolbar, eg pen, rubber
 
@@ -16,7 +17,7 @@ function optionsBar:New(x, y, width, height)
 end
 
 function optionsBar:Debug()
-	helpUI.DebugElement(self)
+	help.DebugElement(self)
 	print()
 end
 

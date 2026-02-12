@@ -17,7 +17,7 @@ function toolBar:New(y)
 end
 
 function toolBar:Debug()
-	helpUI.DebugElement(self)
+	help.DebugElement(self)
 	print()
 end
 

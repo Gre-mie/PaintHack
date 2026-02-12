@@ -55,7 +55,7 @@ function love.load()
 
 	if running ~= true then
 		return -- may not be working
-	end
+	end 
 
 end
 
@@ -179,7 +179,7 @@ function love.draw()
 	-- TEST: vv
 	if frame <= 1 then
 		print("window\nwidth: " .. window.width .. " height: " .. window.height)
-		ui:Debug()
+		ui:Debug() -- TEST: 
 
 		print(ui.areas[2])
 

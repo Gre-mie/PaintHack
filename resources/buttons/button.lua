@@ -9,7 +9,7 @@ function button:New(x, y, width, height, image)
 	--		print("ERROR: " .. message)
 	--	end -- TODO: add propper error message with colour
 	-- TODO: log message and quit
-	obj = { name = name, x = x, y = x, width = width, height = height, padding = 4, image = image }
+	obj = { name = name, x = x, y = x, width = width, height = height, image = nil }
 	self.__index = self
 	return setmetatable(obj, self)
 end
@@ -22,11 +22,11 @@ function button:Clicked()
 end
 
 function button:Debug()
-	print(self.name)
-	print("x: " .. self.x .. " y: " .. self.y)
-	print("width: " .. self.width .. " height: " .. self.height)
-	print("padding: " .. self.padding)
-	print()
+	help.DebugElement(self)
+--	print(self.name)
+--	print("x: " .. self.x .. " y: " .. self.y)
+--	print("width: " .. self.width .. " height: " .. self.height)
+--	print()
 end
 
 function button:Draw()

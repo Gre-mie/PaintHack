@@ -1,4 +1,4 @@
-helpUI = require("resources/areas/uihelpers")
+--helpUI = require("resources/uihelpers")
 
 local uiprogrambar = require("resources/areas/programbar")
 local uitoolbar = require("resources/areas/toolbar")
@@ -89,11 +89,10 @@ function ui:Debug(type)
 	print(self.name)
 	print("areas: " .. help.len(self.areas))
 
-	if type == "areas" then
 		for _, section in ipairs(self.areas) do
 			section:Debug()
+			print("S")
 		end
-	end
 end
 
 function ui:Draw()

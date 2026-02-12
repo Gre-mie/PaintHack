@@ -17,7 +17,7 @@ function programBar:New()
 end
 
 function programBar:Debug()
-	helpUI.DebugElement(self)
+	help.DebugElement(self)
 	print()
 end
 
